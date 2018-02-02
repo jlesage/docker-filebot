@@ -15,6 +15,27 @@ just works.
 
 ---
 
+## Table of Content
+
+   * [Docker container for FileBot](#docker-container-for-filebot)
+      * [Table of Content](#table-of-content)
+      * [Quick Start](#quick-start)
+      * [Usage](#usage)
+         * [Environment Variables](#environment-variables)
+         * [Data Volumes](#data-volumes)
+         * [Ports](#ports)
+      * [Docker Compose File](#docker-compose-file)
+      * [Docker Image Update](#docker-image-update)
+      * [User/Group IDs](#usergroup-ids)
+      * [Accessing the GUI](#accessing-the-gui)
+      * [Security](#security)
+         * [Certificates](#certificates)
+         * [VNC Password](#vnc-password)
+      * [Reverse Proxy](#reverse-proxy)
+         * [Routing Based on Hostname](#routing-based-on-hostname)
+         * [Routing Based on URL Path](#routing-based-on-url-path)
+      * [Support or Contact](#support-or-contact)
+
 ## Quick Start
 
 **NOTE**: The Docker command provided in this quick start is given as an example
