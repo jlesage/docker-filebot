@@ -1,5 +1,5 @@
 # Docker container for FileBot
-[![Docker Automated build](https://img.shields.io/docker/automated/jlesage/filebot.svg)](https://hub.docker.com/r/jlesage/filebot/) [![](https://images.microbadger.com/badges/image/jlesage/filebot.svg)](http://microbadger.com/#/images/jlesage/filebot "Get your own image badge on microbadger.com") [![Build Status](https://travis-ci.org/jlesage/docker-filebot.svg?branch=master)](https://travis-ci.org/jlesage/docker-filebot) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
+[![Docker Automated build](https://img.shields.io/docker/automated/jlesage/filebot.svg)](https://hub.docker.com/r/jlesage/filebot/) [![Docker Image](https://images.microbadger.com/badges/image/jlesage/filebot.svg)](http://microbadger.com/#/images/jlesage/filebot) [![Build Status](https://travis-ci.org/jlesage/docker-filebot.svg?branch=master)](https://travis-ci.org/jlesage/docker-filebot) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-filebot.svg)](https://github.com/jlesage/docker-filebot/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
 
 This is a Docker container for FileBot.
 
