@@ -31,6 +31,13 @@ just works.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.0.1</version>
+        <date>2018-02-03</date>
+        <change>Now using baseimage v3.3.2, which brings the following changes:</change>
+        <change level="2">Restored timezone support in Alpine Linux images with glibc.</change>
+        <change level="2">Fixed issue in `add-pkg` helper where a package could be incorrectly detected as installed.</change>
+      </release>
+      <release>
         <version>1.0.0</version>
         <date>2018-01-31</date>
         <change>Initial release.</change>
