@@ -49,10 +49,6 @@ RUN \
     del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
         
-# Temporary workaround for missing libraries in OenJFX package (see
-# https://github.com/sgerrand/alpine-pkg-java-openjfx/issues/1)
-COPY openjfx-lib/* /usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64/
-
 # Adjust the openbox config.
 RUN \
     # Maximize only the main window.
