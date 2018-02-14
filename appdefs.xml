@@ -53,5 +53,7 @@ just works.
     <ports/>
     <!-- Devices -->
     <devices/>
+    <!-- Extra parameters -->
+    <extra_params/>
   </container>
 </defs>
