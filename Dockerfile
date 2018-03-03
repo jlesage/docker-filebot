@@ -12,7 +12,7 @@ ARG FILEBOT_VERSION=4.7.9
 ARG OPENJFX_VERSION=8.151.12-r0
 
 # Define software download URLs.
-ARG FILEBOT_URL=https://downloads.sourceforge.net/project/filebot/filebot/FileBot_${FILEBOT_VERSION}/FileBot_${FILEBOT_VERSION}-portable.tar.xz
+ARG FILEBOT_URL=https://superb-dca2.dl.sourceforge.net/project/filebot/filebot/FileBot_${FILEBOT_VERSION}/FileBot_${FILEBOT_VERSION}-portable.tar.xz
 ARG OPENJFX_URL=https://github.com/sgerrand/alpine-pkg-java-openjfx/releases/download/${OPENJFX_VERSION}/java-openjfx-${OPENJFX_VERSION}.apk
 
 # Define working directory.
