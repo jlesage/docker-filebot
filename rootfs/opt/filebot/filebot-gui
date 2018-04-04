@@ -1,0 +1,3 @@
+#!/bin/sh
+export JAVA_OPTS="-Dprism.verbose=true -Djava.awt.headless=false -Dawt.useSystemAAFontSettings=on -Dprism.order=sw"
+exec /opt/filebot/filebot
