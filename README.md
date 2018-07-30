@@ -432,7 +432,7 @@ machines.
 While FileBot can be used/evaluated without a license,
 certain features, like renaming files, won't work without one.
 
-A license can be purchased at https://www.filebot.net/purchase.html#tar.
+A license can be purchased at https://www.filebot.net/purchase.html.
 
 ### Installing a License
 
