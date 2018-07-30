@@ -18,6 +18,10 @@ if [ ! -f /config/prefs.properties ]; then
     touch /config/.licensed_version
 fi
 
+# Clear the fstab file to make sure its content is not displayed when opening
+# files.
+echo > /etc/fstab
+
 # Install the license to the proper location.
 if [ ! -f "$LICENSE_PATH" ]; then
     LFILE="$(find /config -maxdepth 1 -name "*.psm" -type f)"
