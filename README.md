@@ -38,6 +38,9 @@ just works.
       * [Reverse Proxy](#reverse-proxy)
          * [Routing Based on Hostname](#routing-based-on-hostname)
          * [Routing Based on URL Path](#routing-based-on-url-path)
+      * [License](#license)
+         * [Installing a License](#installing-a-license)
+         * [Donation Supported Version](#donation-supported-version)
       * [Support or Contact](#support-or-contact)
 
 ## Quick Start
@@ -419,6 +422,40 @@ server {
 }
 
 ```
+
+## License
+
+FileBot supports a cross-platform custom license model,
+which means that a license can be purchased and then be used on all the buyer's
+machines.
+
+While FileBot can be used/evaluated without a license,
+certain features, like renaming files, won't work without one.
+
+A license can be purchased at https://www.filebot.net/purchase.html#tar.
+
+### Installing a License
+
+Once purchased, the license file received via email can be saved on the host,
+into the configuration directory of the container (i.e. in the directory mapped
+to `/config`).
+
+Then, start or restart the container to have it automatically installed.
+
+### Donation Supported Version
+
+In the past, FileBot was donation supported, meaning that
+the author was expecting users to donate an arbitrary amount of money if they
+like and use the software.
+
+The last version of FileBot supporting this model is
+`4.7.9`.  This version is implemented in container image version `1.0.2`.
+
+To revert to this version, create the container by using
+`jlesage/filebot:v1.0.2` as the image name.
+
+**NOTE**: While no license is required to use this version, it is no longer
+supported and maintained by the author of FileBot.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 

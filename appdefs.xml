@@ -27,7 +27,48 @@ just works.
       <storage_permissions>rw</storage_permissions>
     </container>
     <!-- Extra stuff to be added to the documentation. -->
-    <documentation/>
+    <documentation>
+      <section>
+        <title level="2">License</title>
+        <content>
+{{ defs.app.friendly_name }} supports a cross-platform custom license model,
+which means that a license can be purchased and then be used on all the buyer's
+machines.
+
+While {{ defs.app.friendly_name }} can be used/evaluated without a license,
+certain features, like renaming files, won't work without one.
+
+A license can be purchased at https://www.filebot.net/purchase.html#tar.
+        </content>
+      </section>
+      <section>
+        <title level="3">Installing a License</title>
+        <content>
+Once purchased, the license file received via email can be saved on the host,
+into the configuration directory of the container (i.e. in the directory mapped
+to `/config`).
+
+Then, start or restart the container to have it automatically installed.
+        </content>
+      </section>
+      <section>
+        <title level="3">Donation Supported Version</title>
+        <content>
+In the past, {{ defs.app.friendly_name }} was donation supported, meaning that
+the author was expecting users to donate an arbitrary amount of money if they
+like and use the software.
+
+The last version of {{ defs.app.friendly_name }} supporting this model is
+`4.7.9`.  This version is implemented in container image version `1.0.2`.
+
+To revert to this version, create the container by using
+`jlesage/filebot:v1.0.2` as the image name.
+
+**NOTE**: While no license is required to use this version, it is no longer
+supported and maintained by the author of {{ defs.app.friendly_name }}.
+        </content>
+      </section>
+    </documentation>
     <!-- Changelog of the application. -->
     <history>
       <release>
