@@ -1,0 +1,41 @@
+#!/bin/sh
+
+ARG="$1"
+
+show_license_purchase_info() {
+    URL="$1"
+    XDG_BASE="$(mktemp -d)"
+
+    export XDG_DATA_HOME="$XDG_BASE/xdg/data"
+    export XDG_CONFIG_HOME="$XDG_BASE/xdg/config"
+    export XDG_CACHE_HOME="$XDG_BASE/xdg/cache"
+
+    yad \
+        --fixed \
+        --center \
+        --title "$APP_NAME" \
+        --window-icon /opt/novnc/images/icons/master_icon.png \
+        --borders 10 \
+        --image dialog-information \
+        --image-on-top \
+        --text "<b>Purchase License</b>" \
+        --form \
+        --field "To purchase a license for $APP_NAME, please visit:\n\n<span foreground=\"blue\">$URL</span>\n\nOnce purchased, copy the license file received to your email address to the folder mapped to <i>/config</i> and restart the container.:LBL" \
+        --button=gtk-ok:0 > /dev/null || true
+
+    rm -r "$XDG_BASE"
+}
+
+if [ -z "$ARG" ]; then
+    exit 1
+fi
+
+case "$ARG" in
+    https://www.filebot.net/purchase.html*)
+        show_license_purchase_info "$ARG"
+        ;;
+    *)
+        echo "unknown how to open: $ARG"
+        exit 1
+        ;;
+esac

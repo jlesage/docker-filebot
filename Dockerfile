@@ -45,6 +45,8 @@ RUN \
         && \
     # AcousItD (fpcalc)
     add-pkg chromaprint --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
+    # YAD
+    add-pkg yad && \
     # Cleanup.
     del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
