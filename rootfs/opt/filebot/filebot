@@ -28,7 +28,7 @@ CONTAINER_OPTS=" \
 
 # start filebot
 exec /usr/lib/jvm/java-1.8-openjdk/bin/java \
-    -Dapplication.deployment=tar \
+    -Dapplication.deployment=docker \
     -Dnet.filebot.license="$APP_DATA/license.psm" \
     -Dnet.filebot.media.parser="$MEDIA_PARSER" \
     -Dnet.filebot.Archive.extractor="$ARCHIVE_EXTRACTOR" \
