@@ -72,6 +72,12 @@ supported and maintained by the author of {{ defs.app.friendly_name }}.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.1.0</version>
+        <date>2018-07-30</date>
+        <change>Upgraded FileBot to version 4.8.2.</change>
+        <change>Now using baseimage v3.4.0, which is based on Alpine Linux 3.8.</change>
+      </release>
+      <release>
         <version>1.0.2</version>
         <date>2018-03-02</date>
         <change>Now using baseimage v3.3.4, which brings the following changes (since last used version):</change>
