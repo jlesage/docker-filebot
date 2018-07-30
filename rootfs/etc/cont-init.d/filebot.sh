@@ -12,7 +12,11 @@ LICENSE_PATH=/config/license.psm
 # Make sure required directories exists
 mkdir -p "$XDG_DATA_HOME"
 
-[ -f /config/prefs.properties ] || cp /defaults/prefs.properties /config/
+# Copy default config.
+if [ ! -f /config/prefs.properties ]; then
+    cp /defaults/prefs.properties /config/
+    touch /config/.licensed_version
+fi
 
 # Install the license to the proper location.
 if [ ! -f "$LICENSE_PATH" ]; then
