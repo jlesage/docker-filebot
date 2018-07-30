@@ -28,6 +28,7 @@ show_upgrade_info() {
 
 if [ ! -f /config/.licensed_version ]; then
     show_upgrade_info &
+    touch /config/.licensed_version
 fi
 
 cd /config
