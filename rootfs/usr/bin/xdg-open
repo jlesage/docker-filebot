@@ -32,7 +32,7 @@ fi
 
 case "$ARG" in
     https://www.filebot.net/purchase.html*)
-        show_license_purchase_info "$ARG"
+        show_license_purchase_info "https://www.filebot.net/purchase.html"
         ;;
     *)
         echo "unknown how to open: $ARG"
