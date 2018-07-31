@@ -35,7 +35,7 @@ case "$ARG" in
         show_license_purchase_info "https://www.filebot.net/purchase.html"
         ;;
     *)
-        echo "unknown how to open: $ARG"
+        echo "don't know how to open: $ARG"
         exit 1
         ;;
 esac
