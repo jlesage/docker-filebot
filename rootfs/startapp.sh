@@ -27,7 +27,9 @@ show_upgrade_info() {
 /opt/filebot/filebot -script fn:sysinfo
 
 if [ ! -f /config/.licensed_version ]; then
-    show_upgrade_info &
+    if [ ! -f /config/license.psm ]; then
+        show_upgrade_info &
+    fi
     touch /config/.licensed_version
 fi
 
