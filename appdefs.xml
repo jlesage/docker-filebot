@@ -72,6 +72,11 @@ supported and maintained by the author of {{ defs.app.friendly_name }}.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.1.1</version>
+        <date>2018-07-30</date>
+        <change>Fixed issue where the pop-up window about FileBot requiring a license would be shown more than once.</change>
+      </release>
+      <release>
         <version>1.1.0</version>
         <date>2018-07-30</date>
         <change>Upgraded FileBot to version 4.8.2.</change>
