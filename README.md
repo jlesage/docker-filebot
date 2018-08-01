@@ -442,6 +442,8 @@ to `/config`).
 
 Then, start or restart the container to have it automatically installed.
 
+**NOTE**: The license file is expected to have a `.psm` extension.
+
 ### Donation Supported Version
 
 In the past, FileBot was donation supported, meaning that

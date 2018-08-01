@@ -49,6 +49,8 @@ into the configuration directory of the container (i.e. in the directory mapped
 to `/config`).
 
 Then, start or restart the container to have it automatically installed.
+
+**NOTE**: The license file is expected to have a `.psm` extension.
         </content>
       </section>
       <section>
