@@ -24,12 +24,18 @@ RUN \
     mkdir filebot && \
     # Download sources.
     curl -# -L ${FILEBOT_URL} | tar xJ -C filebot && \
+    # Temporary hack until the official 4.8.4 release is available: do not use
+    # the packaged jar, but the one containing the deadlock fix.
+    rm filebot/jar/filebot.jar && \
     # Install.
     mkdir /opt/filebot && \
     cp -Rv filebot/jar /opt/filebot/ && \
     # Cleanup.
     del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
+
+# Temporary hack until the official 4.8.4 release is available.
+COPY filebot-4.8.4-r5846.jar /opt/filebot/jar/filebot.jar
 
 # Install dependencies.
 RUN \
