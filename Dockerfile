@@ -5,7 +5,7 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.8-v3.4.0
+FROM jlesage/baseimage-gui:alpine-3.8-v3.5.1
 
 # Define software versions.
 ARG FILEBOT_VERSION=4.8.2
