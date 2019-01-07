@@ -33,5 +33,5 @@ if [ ! -f /config/.licensed_version ]; then
     touch /config/.licensed_version
 fi
 
-cd /config
+cd /storage
 exec /opt/filebot/filebot
