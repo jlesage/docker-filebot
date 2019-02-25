@@ -74,6 +74,12 @@ supported and maintained by the author of {{ defs.app.friendly_name }}.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.2.0</version>
+        <date>2019-02-24</date>
+        <change>Upgraded FileBot to version 4.8.5.</change>
+        <change>Use baseimage based on Alpine Linux 3.9.</change>
+      </release>
+      <release>
         <version>1.1.5</version>
         <date>2019-01-07</date>
         <change>The default folder when loading files is now `/storage`.</change>
