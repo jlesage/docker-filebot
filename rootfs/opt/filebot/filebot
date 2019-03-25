@@ -11,7 +11,7 @@ FILEBOT_HOME=/opt/filebot
 APP_DATA=/config
 
 # choose archive extractor / media characteristics parser
-ARCHIVE_EXTRACTOR="ApacheVFS"
+ARCHIVE_EXTRACTOR="SevenZipExecutable"
 MEDIA_PARSER="libmediainfo"
 
 LIBRARY_PATH="/usr/lib"

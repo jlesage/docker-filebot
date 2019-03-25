@@ -40,6 +40,8 @@ RUN \
     curl -# -L -o java-openjfx.apk ${OPENJFX_URL} && \
     apk --no-cache add --allow-untrusted ./java-openjfx.apk && \
     add-pkg \
+        p7zip \
+        nss \
         gtk+2.0 \
         openjdk8-jre \
         java-jna \
