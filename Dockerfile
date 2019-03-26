@@ -41,6 +41,7 @@ RUN \
     apk --no-cache add --allow-untrusted ./java-openjfx.apk && \
     add-pkg \
         p7zip \
+        unrar \
         nss \
         gtk+2.0 \
         openjdk8-jre \

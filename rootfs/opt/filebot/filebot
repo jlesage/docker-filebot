@@ -11,7 +11,7 @@ FILEBOT_HOME=/opt/filebot
 APP_DATA=/config
 
 # choose archive extractor / media characteristics parser
-ARCHIVE_EXTRACTOR="SevenZipExecutable"
+ARCHIVE_EXTRACTOR="ShellExecutables"
 MEDIA_PARSER="libmediainfo"
 
 LIBRARY_PATH="/usr/lib"
@@ -31,7 +31,7 @@ exec /usr/lib/jvm/java-1.8-openjdk/bin/java \
     -Dapplication.deployment=docker \
     -Dnet.filebot.license="$APP_DATA/license.psm" \
     -Dnet.filebot.media.parser="$MEDIA_PARSER" \
-    -Dnet.filebot.Archive.extractor="$ARCHIVE_EXTRACTOR" \
+    -Dnet.filebot.archive.extractor="$ARCHIVE_EXTRACTOR" \
     -Dunixfs=false \
     -DuseExtendedFileAttributes=true \
     -DuseCreationDate=false \
