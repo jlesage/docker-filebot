@@ -74,6 +74,11 @@ supported and maintained by the author of {{ defs.app.friendly_name }}.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.2.3</version>
+        <date>2019-04-03</date>
+        <change>Upgraded FileBot to final version 4.8.5 (r6224).</change>
+      </release>
+      <release>
         <version>1.2.2</version>
         <date>2019-03-26</date>
         <change>Adjusted archive extraction to work with the latest FileBot build.</change>
