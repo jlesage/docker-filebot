@@ -1,5 +1,5 @@
 # Docker container for FileBot
-[![Docker Image](https://images.microbadger.com/badges/image/jlesage/filebot.svg)](http://microbadger.com/#/images/jlesage/filebot) [![Build Status](https://travis-ci.org/jlesage/docker-filebot.svg?branch=master)](https://travis-ci.org/jlesage/docker-filebot) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-filebot.svg)](https://github.com/jlesage/docker-filebot/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
+[![Docker Image Size](https://img.shields.io/microbadger/image-size/jlesage/filebot)](http://microbadger.com/#/images/jlesage/filebot) [![Build Status](https://travis-ci.org/jlesage/docker-filebot.svg?branch=master)](https://travis-ci.org/jlesage/docker-filebot) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-filebot.svg)](https://github.com/jlesage/docker-filebot/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
 
 This is a Docker container for [FileBot](http://www.filebot.net/).
 
