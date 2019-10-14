@@ -507,7 +507,7 @@ Configuration of the AMC script is done via `AMC_*` environment variables. See
 the [Environment Variables](#environment-variables) section for the list and
 descriptions of environment variables that can be set.
 
-To see what the AMC script is doing, see the container's log.
+To see what the AMC script is doing, look at the container's log.
 
 **NOTE**: By default, the script runs in dry mode, meaning that no change is
 performed.  This allows you to verify that results produced by the script are
