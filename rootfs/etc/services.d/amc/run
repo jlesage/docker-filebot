@@ -1,0 +1,128 @@
+#!/usr/bin/with-contenv sh
+
+set -u # Treat unset variables as an error.
+
+# Make sure we appear with a proper name under `ps`.
+if [ ! -L "$0" ]; then
+    SV_NAME="$(basename "$(pwd)")"
+    ln -sf run "$SV_NAME"
+    exec ./"$SV_NAME" "$@"
+fi
+
+log() {
+    echo "[$(basename "$0")] $*"
+}
+
+process_filebot_output() {
+    while read LINE; do
+        log "$LINE"
+    done
+}
+
+WATCHDIR_HASH="$(mktemp -d)"
+
+trap "exit" TERM QUIT INT
+trap "clean_exit" EXIT
+clean_exit() {
+    rm -rf "$WATCHDIR_HASH"
+}
+
+# Define all environment variables with their default value.
+
+AMC_INTERVAL="${AMC_INTERVAL:-1800}"
+AMC_INPUT_STABLE_TIME="${AMC_INPUT_STABLE_TIME:-10}"
+AMC_ACTION="${AMC_ACTION:-test}"
+AMC_CONFLICT="${AMC_CONFLICT:-auto}"
+AMC_MUSIC_FORMAT="${AMC_MUSIC_FORMAT:-\{plex\}}"
+AMC_MOVIE_FORMAT="${AMC_MOVIE_FORMAT:-\{plex\}}"
+AMC_SERIES_FORMAT="${AMC_SERIES_FORMAT:-\{plex\}}"
+AMC_ANIME_FORMAT="${AMC_ANIME_FORMAT:-\{plex\}}"
+AMC_PROCESS_MUSIC="${AMC_PROCESS_MUSIC:-y}"
+AMC_SUBTITLE_LANG="${AMC_SUBTITLE_LANG:-}"
+AMC_CUSTOM_OPTIONS="${AMC_CUSTOM_OPTIONS:-}"
+
+AMC_INPUT_DIR="/watch"
+AMC_OUTPUT_DIR="/output"
+AMC_EXCLUDE_LIST="/config/amc-exlude-list.txt"
+AMC_LOG_FILE="/config/log/amc.log"
+
+if [ -n "$AMC_SUBTITLE_LANG" ]; then
+    AMC_CUSTOM_OPTIONS="--def subtitles=$AMC_SUBTITLE_LANG $AMC_CUSTOM_OPTIONS"
+fi
+
+WATCHDIR_HASH_calculate() {
+    WATCHDIR="$1"
+    find "$WATCHDIR" -follow -type f -not -path '*/\.*' -printf '%T@:%s:%p\n' | md5sum | cut -d' ' -f1
+}
+
+WATCHDIR_HASH_isset() {
+    WATCHDIR="$1"
+    [ -f "$WATCHDIR_HASH/$WATCHDIR/hash" ]
+}
+
+WATCHDIR_HASH_update() {
+    WATCHDIR="$1"
+    mkdir -p "$WATCHDIR_HASH/$WATCHDIR"
+    WATCHDIR_HASH_calculate "$WATCHDIR" > "$WATCHDIR_HASH/$WATCHDIR/hash"
+}
+
+WATCHDIR_HASH_changed() {
+    WATCHDIR="$1"
+    [ ! -f "$WATCHDIR_HASH/$WATCHDIR/hash" ] || \
+    [ "$(cat "$WATCHDIR_HASH/$WATCHDIR/hash")" != "$(WATCHDIR_HASH_calculate "$WATCHDIR")" ]
+}
+
+INIT=true
+while true; do
+    if ! $INIT; then
+        sleep "$AMC_INTERVAL"
+    else
+        INIT=false
+    fi
+
+    # Do not invoke the AMC script if input folder is empty.
+    if ! ls -1qA "$AMC_INPUT_DIR" | grep -q .; then
+        continue
+    fi
+
+    # Do not invoke the AMC script if input folder did not change.
+    if ! WATCHDIR_HASH_changed "$AMC_INPUT_DIR"; then
+        continue
+    fi
+
+    log "Changes detected in input folder."
+
+    # Save the current input dir hash.
+    WATCHDIR_HASH_update "$AMC_INPUT_DIR"
+
+    # Wait to make sure the input folder is stable.
+    log "Waiting $AMC_INPUT_STABLE_TIME seconds before proceeding..."
+    sleep "$AMC_INPUT_STABLE_TIME"
+
+    # Do not invoke the AMC script if the input folder is not stable.
+    if WATCHDIR_HASH_changed "$AMC_INPUT_DIR"; then
+        log "Skipping AMC script invocation: input folder not stable."
+        continue
+    fi
+
+    # Run the AMC script.
+    log "Invoking AMC script..."
+    /opt/filebot/filebot \
+        -script fn:amc \
+        "$AMC_INPUT_DIR" \
+        -no-xattr \
+        --log-file "$AMC_LOG_FILE" \
+        --output "$AMC_OUTPUT_DIR" \
+        --action "$AMC_ACTION" \
+        --conflict "$AMC_CONFLICT" \
+        --def music="$AMC_PROCESS_MUSIC" \
+        --def clean=y \
+        --def excludeList="$AMC_EXCLUDE_LIST" \
+        --def movieFormat="$AMC_MOVIE_FORMAT" \
+        --def musicFormat="$AMC_MUSIC_FORMAT" \
+        --def seriesFormat="$AMC_SERIES_FORMAT" \
+        --def animeFormat="$AMC_ANIME_FORMAT" \
+        $AMC_CUSTOM_OPTIONS 2>&1 | process_filebot_output
+done
+
+# vim: set ft=sh :

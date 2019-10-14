@@ -70,6 +70,29 @@ To revert to this version, create the container by using
 supported and maintained by the author of {{ defs.app.friendly_name }}.
         </content>
       </section>
+      <section>
+        <title level="2">Automated Media Center (AMC)</title>
+        <content>
+This container supports the {{ defs.app.friendly_name }}'s
+[Automated Media Center](https://www.filebot.net/forums/viewtopic.php?t=215)
+(AMC) script.  This script automatically and smartly organizes movies, TV shows,
+anime and music.
+
+Basically, files copied to the `/watch` container folder are automatically
+renamed and organized to the `output` container folder.
+
+Configuration of the AMC script is done via `AMC_*` environment variables. See
+the [Environment Variables](#environment-variables) section for the list and
+descriptions of environment variables that can be set.
+
+To see what the AMC script is doing, see the container's log.
+
+**NOTE**: By default, the script runs in dry mode, meaning that no change is
+performed.  This allows you to verify that results produced by the script are
+correct.  Then, the `AMC_ACTION` environment variable can be updated to perform
+changes to the file system.
+        </content>
+      </section>
     </documentation>
     <!-- Changelog of the application. -->
     <history>
@@ -159,7 +182,162 @@ supported and maintained by the author of {{ defs.app.friendly_name }}.
   </app>
   <container>
     <!-- Environment variables -->
-    <environment_variables/>
+    <environment_variables>
+      <environment_variable>
+        <name>OPENSUBTITLES_USERNAME</name>
+        <description>Username of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles.</description>
+        <default></default>
+        <unraid_template>
+          <title>OpenSubtitles Username</title>
+          <description>Username of your OpenSubtitles (https://www.opensubtitles.org) account.  Required to download subtitles.</description>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>OPENSUBTITLES_PASSWORD</name>
+        <description>Password of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles.</description>
+        <default></default>
+        <unraid_template>
+          <title>OpenSubtitles Passowrd</title>
+          <description>Password of your OpenSubtitles (https://www.opensubtitles.org) account.  Required to download subtitles.</description>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_INTERVAL</name>
+        <description>Time (in seconds) between each invocation of the Automated Media Center (AMC) script.</description>
+        <default>1800</default>
+        <unraid_template>
+          <title>Automated Media Center: Interval</title>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_INPUT_STABLE_TIME</name>
+        <description>Time (in seconds) during which properties (e.g. size, time, etc) of files in the watch folder need to remain the same before invoking the Automated Media Center (AMC) script.  This is to avoid processing the watch folder while files are being copied.</description>
+        <default>10</default>
+        <unraid_template>
+          <title>Automated Media Center: Input Stable Time</title>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_ACTION</name>
+        <description>Action performed by the Automated Media Center (AMC) script on files.  Valid values are `test`, `copy`, `move` or `hardlink`.  Use the `test` operation to perform a dry-run and verify that everything gets matched up correctly.</description>
+        <default>test</default>
+        <unraid_template>
+          <title>Automated Media Center: Action</title>
+          <description>Action performed by the Automated Media Center (AMC) script on files.  Valid values are [b][i]test[/i][/b], [b][i]copy[/i][/b], [b][i]move[/i][/b] or [b][i]hardlink[/i][/b].  Use the [b][i]test[/i][/b] operation to perform a dry-run and verify that everything gets matched up correctly.</description>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_CONFLICT</name>
+        <description>Conflict resolution strategy used by the Automated Media Center (AMC) script: `skip` never overrides existing files, while `auto` overrides existing file only if new media is better.</description>
+        <default>auto</default>
+        <unraid_template>
+          <title>Automated Media Center: Conflict Resolution</title>
+          <description>Conflict resolution strategy used by the Automated Media Center (AMC) script.  When set to [b][i]skip[/i][/b], existing files are never overriden. [b][i]auto[/i][/b] overrides existing file only if new media is better.</description>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_MUSIC_FORMAT</name>
+        <description>Define how music files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation.</description>
+        <default>{plex}</default>
+        <unraid_template>
+          <title>Automated Media Center: Music Format</title>
+          <description>Define how music files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [i]https://www.filebot.net/naming.html[/i] for complete documentation.</description>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_MOVIE_FORMAT</name>
+        <description>Define how movie files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation.</description>
+        <default>{plex}</default>
+        <unraid_template>
+          <title>Automated Media Center: Movie Format</title>
+          <description>Define how movie files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [i]https://www.filebot.net/naming.html[/i] for complete documentation.</description>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_SERIES_FORMAT</name>
+        <description>Define how TV series files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation.</description>
+        <default>{plex}</default>
+        <unraid_template>
+          <title>Automated Media Center: TV Series Format</title>
+          <description>Define how TV series files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [i]https://www.filebot.net/naming.html[/i] for complete documentation.</description>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_ANIME_FORMAT</name>
+        <description>Define how anime files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation.</description>
+        <default>{plex}</default>
+        <unraid_template>
+          <title>Automated Media Center: Anime Format</title>
+          <description>Define how anime files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [i]https://www.filebot.net/naming.html[/i] for complete documentation.</description>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_PROCESS_MUSIC</name>
+        <description>When set to `y`, music files are processed by the Automated Media Center (AMC) script.  A value of `n` does not process them.</description>
+        <default>y</default>
+        <unraid_template>
+          <title>Automated Media Center: Process Music</title>
+          <description>When set to [b][i]y[/i][/b], music files are processed by the Automated Media Center (AMC) script.  A value of [b][i]n[/i][/b] does not process them.</description>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_SUBTITLE_LANG</name>
+        <description>Comma-separated list of subtitle languages to download.  Example: `en,de,fr`.</description>
+        <default></default>
+        <unraid_template>
+          <title>Automated Media Center: Custom Options</title>
+          <description>Comma-separated list of subtitle languages to download.  Example: [b][i]en,de,fr[i][b].</description>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_CUSTOM_OPTIONS</name>
+        <description>Custom arguments to pass to the Automated Media Center (AMC) script.</description>
+        <default></default>
+        <unraid_template>
+          <title>Automated Media Center: Custom Options</title>
+          <description>Custom arguments to pass to the Automated Media Center (AMC) script.</description>
+          <display>advanced</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+    </environment_variables>
     <!-- Volumes -->
     <volumes/>
     <!-- Network ports -->

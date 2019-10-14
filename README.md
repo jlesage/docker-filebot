@@ -42,6 +42,7 @@ just works.
       * [License](#license)
          * [Installing a License](#installing-a-license)
          * [Donation Supported Version](#donation-supported-version)
+      * [Automated Media Center (AMC)](#automated-media-center-amc)
       * [Support or Contact](#support-or-contact)
 
 ## Quick Start
@@ -105,6 +106,19 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`VNC_PASSWORD`| Password needed to connect to the application's GUI.  See the [VNC Password](#vnc-password) section for more details. | (unset) |
 |`X11VNC_EXTRA_OPTS`| Extra options to pass to the x11vnc server running in the Docker container.  **WARNING**: For advanced users. Do not use unless you know what you are doing. | (unset) |
 |`ENABLE_CJK_FONT`| When set to `1`, open source computer font `WenQuanYi Zen Hei` is installed.  This font contains a large range of Chinese/Japanese/Korean characters. | `0` |
+|`OPENSUBTITLES_USERNAME`| Username of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles. | (unset) |
+|`OPENSUBTITLES_PASSWORD`| Password of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles. | (unset) |
+|`AMC_INTERVAL`| Time (in seconds) between each invocation of the Automated Media Center (AMC) script. | `1800` |
+|`AMC_INPUT_STABLE_TIME`| Time (in seconds) during which properties (e.g. size, time, etc) of files in the watch folder need to remain the same before invoking the Automated Media Center (AMC) script.  This is to avoid processing the watch folder while files are being copied. | `10` |
+|`AMC_ACTION`| Action performed by the Automated Media Center (AMC) script on files.  Valid values are `test`, `copy`, `move` or `hardlink`.  Use the `test` operation to perform a dry-run and verify that everything gets matched up correctly. | `test` |
+|`AMC_CONFLICT`| Conflict resolution strategy used by the Automated Media Center (AMC) script: `skip` never overrides existing files, while `auto` overrides existing file only if new media is better. | `auto` |
+|`AMC_MUSIC_FORMAT`| Define how music files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
+|`AMC_MOVIE_FORMAT`| Define how movie files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
+|`AMC_SERIES_FORMAT`| Define how TV series files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
+|`AMC_ANIME_FORMAT`| Define how anime files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
+|`AMC_PROCESS_MUSIC`| When set to `y`, music files are processed by the Automated Media Center (AMC) script.  A value of `n` does not process them. | `y` |
+|`AMC_SUBTITLE_LANG`| Comma-separated list of subtitle languages to download.  Example: `en,de,fr`. | (unset) |
+|`AMC_CUSTOM_OPTIONS`| Custom arguments to pass to the Automated Media Center (AMC) script. | (unset) |
 
 ### Data Volumes
 
@@ -478,6 +492,27 @@ To revert to this version, create the container by using
 
 **NOTE**: While no license is required to use this version, it is no longer
 supported and maintained by the author of FileBot.
+
+## Automated Media Center (AMC)
+
+This container supports the FileBot's
+[Automated Media Center](https://www.filebot.net/forums/viewtopic.php?t=215)
+(AMC) script.  This script automatically and smartly organizes movies, TV shows,
+anime and music.
+
+Basically, files copied to the `/watch` container folder are automatically
+renamed and organized to the `output` container folder.
+
+Configuration of the AMC script is done via `AMC_*` environment variables. See
+the [Environment Variables](#environment-variables) section for the list and
+descriptions of environment variables that can be set.
+
+To see what the AMC script is doing, see the container's log.
+
+**NOTE**: By default, the script runs in dry mode, meaning that no change is
+performed.  This allows you to verify that results produced by the script are
+correct.  Then, the `AMC_ACTION` environment variable can be updated to perform
+changes to the file system.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 

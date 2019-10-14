@@ -45,6 +45,8 @@ RUN \
     add-pkg \
         p7zip \
         unrar \
+        findutils \
+        coreutils \
         nss \
         gtk+2.0 \
         openjdk8-jre \
@@ -109,11 +111,26 @@ RUN \
 COPY rootfs/ /
 
 # Set environment variables.
-ENV APP_NAME="FileBot"
+ENV APP_NAME="FileBot" \
+    OPENSUBTITLES_USERNAME= \
+    OPENSUBTITLES_PASSWORD= \
+    AMC_INTERVAL="1800" \
+    AMC_INPUT_STABLE_TIME="10" \
+    AMC_ACTION="test" \
+    AMC_CONFLICT="auto" \
+    AMC_MUSIC_FORMAT="{plex}" \
+    AMC_MOVIE_FORMAT="{plex}" \
+    AMC_SERIES_FORMAT="{plex}" \
+    AMC_ANIME_FORMAT="{plex}" \
+    AMC_PROCESS_MUSIC="y" \
+    AMC_SUBTITLE_LANG= \
+    AMC_CUSTOM_OPTIONS=
 
 # Define mountable directories.
 VOLUME ["/config"]
 VOLUME ["/storage"]
+VOLUME ["/watch"]
+VOLUME ["/output"]
 
 # Metadata.
 LABEL \
