@@ -97,6 +97,11 @@ changes to the file system.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.3.0</version>
+        <date>2019-10-13</date>
+        <change>Added support for the FileBot's Automated Media Center (AMC) script.</change>
+      </release>
+      <release>
         <version>1.2.4</version>
         <date>2019-04-26</date>
         <change>Now using baseimage v3.5.2, which brings the following changes:</change>
