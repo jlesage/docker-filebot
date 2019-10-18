@@ -130,6 +130,8 @@ format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
 |-----------------|-------------|-------------|
 |`/config`| rw | This is where the application stores its configuration, log and any files needing persistency. |
 |`/storage`| rw | This location contains files from your host that need to be accessible by the application. |
+|`/watch`| rw | This is the input folder of the Automated Media Center (AMC) script.  Any media copied to this folder will be processed by the script.  Note that there is no need to map this folder if the script is not used. |
+|`/output`| rw | This is the output folder of the Automated Media Center (AMC) script.  This is where medias are located once they are renamed and organized.  Note that there is no need to map this folder if the script is not used. |
 
 ### Ports
 
@@ -501,7 +503,7 @@ This container supports the FileBot's
 anime and music.
 
 Basically, files copied to the `/watch` container folder are automatically
-renamed and organized to the `output` container folder.
+renamed and organized to the `/output` container folder.
 
 Configuration of the AMC script is done via `AMC_*` environment variables. See
 the [Environment Variables](#environment-variables) section for the list and
@@ -513,6 +515,10 @@ To see what the AMC script is doing, look at the container's log.
 performed.  This allows you to verify that results produced by the script are
 correct.  Then, the `AMC_ACTION` environment variable can be updated to perform
 changes to the file system.
+
+**NOTE**: For the script to properly function, container folders `/watch` and
+`/output` must be properly mapped to the host.  See the
+[Data Volumes](#data-volumes) section.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
