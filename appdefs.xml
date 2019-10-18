@@ -374,7 +374,7 @@ changes to the file system.
           <title>Automated Media Center: Output Directory</title>
           <description>This is the output folder of the Automated Media Center (AMC) script.  This is where medias are located once they are renamed and organized.[br]Container path: /output</description>
           <display>always</display>
-          <required>true</required>
+          <required>false</required>
           <mask>false</mask>
         </unraid_template>
       </volume>
