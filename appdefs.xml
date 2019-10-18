@@ -240,11 +240,11 @@ changes to the file system.
       </environment_variable>
       <environment_variable>
         <name>AMC_ACTION</name>
-        <description>Action performed by the Automated Media Center (AMC) script on files.  Valid values are `test`, `copy`, `move` or `hardlink`.  Use the `test` operation to perform a dry-run and verify that everything gets matched up correctly.</description>
+        <description>Action performed by the Automated Media Center (AMC) script on files.  Valid values are `test`, `copy`, `move`, `symlink`, `hardlink`, `keeplink`, `duplicate` or `clone`.  Use the `test` operation to perform a dry-run and verify that everything gets matched up correctly.</description>
         <default>test</default>
         <unraid_template>
           <title>Automated Media Center: Action</title>
-          <description>Action performed by the Automated Media Center (AMC) script on files.  Valid values are [b][i]test[/i][/b], [b][i]copy[/i][/b], [b][i]move[/i][/b] or [b][i]hardlink[/i][/b].  Use the [b][i]test[/i][/b] operation to perform a dry-run and verify that everything gets matched up correctly.</description>
+          <description>Action performed by the Automated Media Center (AMC) script on files.  Valid values are [b][i]test[/i][/b], [b][i]copy[/i][/b], [b][i]move[/i][/b], [b][i]symlink[/i][/b], [b][i]hardlink[/i][/b], [b][i]keeplink[/i][/b], [b][i]duplicate[/i][/b] or [b][i]clone[/i][/b].  Use the [b][i]test[/i][/b] operation to perform a dry-run and verify that everything gets matched up correctly.</description>
           <display>always</display>
           <required>false</required>
           <mask>false</mask>
