@@ -327,7 +327,7 @@ changes to the file system.
         <description>Comma-separated list of subtitle languages to download.  Example: `en,de,fr`.</description>
         <default></default>
         <unraid_template>
-          <title>Automated Media Center: Custom Options</title>
+          <title>Automated Media Center: Subtitle Languages</title>
           <description>Comma-separated list of subtitle languages to download.  Example: [b][i]en,de,fr[i][b].</description>
           <display>always</display>
           <required>false</required>
