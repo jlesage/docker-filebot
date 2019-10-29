@@ -101,6 +101,11 @@ changes to the file system.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.5.0</version>
+        <date>2019-10-29</date>
+        <change>The ability to fetch artwork and generate NFO file using the AMC script is now configurable.</change>
+      </release>
+      <release>
         <version>1.4.0</version>
         <date>2019-10-28</date>
         <change>The match mode used by the AMC script is now configurable.</change>
