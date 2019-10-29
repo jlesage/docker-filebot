@@ -118,6 +118,7 @@ ENV APP_NAME="FileBot" \
     AMC_INPUT_STABLE_TIME="10" \
     AMC_ACTION="test" \
     AMC_CONFLICT="auto" \
+    AMC_MATCH_MODE="opportunistic" \
     AMC_MUSIC_FORMAT="{plex}" \
     AMC_MOVIE_FORMAT="{plex}" \
     AMC_SERIES_FORMAT="{plex}" \

@@ -268,6 +268,18 @@ changes to the file system.
         </unraid_template>
       </environment_variable>
       <environment_variable>
+        <name>AMC_MATCH_MODE</name>
+        <description>Match mode used by the Automated Media Center (AMC) script: `opportunistic` mode works for all files regardless how badly they are named, while `strict` mode works for reasonably well-named files and ignore files that cannot be matched accurately.  See [Match Mode](https://www.filebot.net/forums/viewtopic.php?t=4695) for complete documentation.</description>
+        <default>opportunistic</default>
+        <unraid_template>
+          <title>Automated Media Center: Match Mode</title>
+          <description>Match mode used by the Automated Media Center (AMC) script.  The [b][i]opportunistic[/i][/b] mode works for all files regardless how badly they are named, while [b][i]strict[/i][/b] mode works for reasonably well-named files and ignore files that cannot be matched accurately.  See [i]https://www.filebot.net/forums/viewtopic.php?t=4695[/i] for complete documentation.</description>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
         <name>AMC_MUSIC_FORMAT</name>
         <description>Define how music files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation.</description>
         <default>{plex}</default>

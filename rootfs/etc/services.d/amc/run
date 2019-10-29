@@ -33,6 +33,7 @@ AMC_INTERVAL="${AMC_INTERVAL:-1800}"
 AMC_INPUT_STABLE_TIME="${AMC_INPUT_STABLE_TIME:-10}"
 AMC_ACTION="${AMC_ACTION:-test}"
 AMC_CONFLICT="${AMC_CONFLICT:-auto}"
+AMC_MATCH_MODE="${AMC_MATCH_MODE:-opportunistic}"
 AMC_MUSIC_FORMAT="${AMC_MUSIC_FORMAT:-\{plex\}}"
 AMC_MOVIE_FORMAT="${AMC_MOVIE_FORMAT:-\{plex\}}"
 AMC_SERIES_FORMAT="${AMC_SERIES_FORMAT:-\{plex\}}"
@@ -48,6 +49,10 @@ AMC_LOG_FILE="/config/log/amc.log"
 
 if [ -n "$AMC_SUBTITLE_LANG" ]; then
     AMC_CUSTOM_OPTIONS="--def subtitles=$AMC_SUBTITLE_LANG $AMC_CUSTOM_OPTIONS"
+fi
+
+if [ "$AMC_MATCH_MODE" = "opportunistic" ]; then
+    AMC_CUSTOM_OPTIONS="-non-strict $AMC_CUSTOM_OPTIONS"
 fi
 
 WATCHDIR_HASH_calculate() {
@@ -111,7 +116,6 @@ while true; do
         -script fn:amc \
         "$AMC_INPUT_DIR" \
         -no-xattr \
-        -non-strict \
         --log-file "$AMC_LOG_FILE" \
         --output "$AMC_OUTPUT_DIR" \
         --action "$AMC_ACTION" \
