@@ -34,6 +34,7 @@ AMC_INPUT_STABLE_TIME="${AMC_INPUT_STABLE_TIME:-10}"
 AMC_ACTION="${AMC_ACTION:-test}"
 AMC_CONFLICT="${AMC_CONFLICT:-auto}"
 AMC_MATCH_MODE="${AMC_MATCH_MODE:-opportunistic}"
+AMC_ARTWORK="${AMC_ARTWORK:-n}"
 AMC_MUSIC_FORMAT="${AMC_MUSIC_FORMAT:-\{plex\}}"
 AMC_MOVIE_FORMAT="${AMC_MOVIE_FORMAT:-\{plex\}}"
 AMC_SERIES_FORMAT="${AMC_SERIES_FORMAT:-\{plex\}}"
@@ -120,6 +121,7 @@ while true; do
         --output "$AMC_OUTPUT_DIR" \
         --action "$AMC_ACTION" \
         --conflict "$AMC_CONFLICT" \
+        --def artwork="$AMC_ARTWORK" \
         --def music="$AMC_PROCESS_MUSIC" \
         --def clean=y \
         --def excludeList="$AMC_EXCLUDE_LIST" \
