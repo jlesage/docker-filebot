@@ -101,6 +101,11 @@ changes to the file system.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.5.1</version>
+        <date>2019-11-04</date>
+        <change>Implemented workaround for the AMC script's artwork and nfo fetching not working without xattr support.</change>
+      </release>
+      <release>
         <version>1.5.0</version>
         <date>2019-10-29</date>
         <change>The ability to fetch artwork and generate NFO file using the AMC script is now configurable.</change>
