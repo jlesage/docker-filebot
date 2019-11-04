@@ -116,7 +116,6 @@ while true; do
     /opt/filebot/filebot \
         -script fn:amc \
         "$AMC_INPUT_DIR" \
-        -no-xattr \
         --log-file "$AMC_LOG_FILE" \
         --output "$AMC_OUTPUT_DIR" \
         --action "$AMC_ACTION" \
