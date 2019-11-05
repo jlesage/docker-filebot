@@ -229,7 +229,7 @@ changes to the file system.
         <description>Password of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles.</description>
         <default></default>
         <unraid_template>
-          <title>OpenSubtitles Passowrd</title>
+          <title>OpenSubtitles Password</title>
           <description>Password of your OpenSubtitles (https://www.opensubtitles.org) account.  Required to download subtitles.</description>
           <display>always</display>
           <required>false</required>
