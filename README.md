@@ -121,6 +121,8 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`AMC_PROCESS_MUSIC`| When set to `y`, music files are processed by the Automated Media Center (AMC) script.  A value of `n` does not process them. | `y` |
 |`AMC_SUBTITLE_LANG`| Comma-separated list of subtitle languages to download.  Example: `en,de,fr`. | (unset) |
 |`AMC_CUSTOM_OPTIONS`| Custom arguments to pass to the Automated Media Center (AMC) script. | (unset) |
+|`AMC_INPUT_DIR`| Directory inside the container used as the input folder of the Automated Media Center (AMC) script. | `/watch` |
+|`AMC_OUTPUT_DIR`| Directory inside the container used as the output folder of the Automated Media Center (AMC) script. | `/output` |
 
 ### Data Volumes
 

@@ -400,6 +400,30 @@ changes to the file system.
           <mask>false</mask>
         </unraid_template>
       </environment_variable>
+      <environment_variable>
+        <name>AMC_INPUT_DIR</name>
+        <description>Directory inside the container used as the input folder of the Automated Media Center (AMC) script.</description>
+        <default>/watch</default>
+        <unraid_template>
+          <title>Automated Media Center: Input Directory</title>
+          <description>Directory inside the container used as the input folder of the Automated Media Center (AMC) script.</description>
+          <display>advanced</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>AMC_OUTPUT_DIR</name>
+        <description>Directory inside the container used as the output folder of the Automated Media Center (AMC) script.</description>
+        <default>/output</default>
+        <unraid_template>
+          <title>Automated Media Center: Output Directory</title>
+          <description>Directory inside the container used as the output folder of the Automated Media Center (AMC) script.</description>
+          <display>advanced</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
     </environment_variables>
     <!-- Volumes -->
     <volumes>

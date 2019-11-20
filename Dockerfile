@@ -126,7 +126,9 @@ ENV APP_NAME="FileBot" \
     AMC_ANIME_FORMAT="{plex}" \
     AMC_PROCESS_MUSIC="y" \
     AMC_SUBTITLE_LANG= \
-    AMC_CUSTOM_OPTIONS=
+    AMC_CUSTOM_OPTIONS= \
+    AMC_INPUT_FOLDER=/watch \
+    AMC_OUTPUT_FOLDER=/output
 
 # Define mountable directories.
 VOLUME ["/config"]
