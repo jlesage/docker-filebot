@@ -101,6 +101,11 @@ changes to the file system.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.6.0</version>
+        <date>2019-11-19</date>
+        <change>Added the ability to configure the input and output folders used by the AMC script.</change>
+      </release>
+      <release>
         <version>1.5.3</version>
         <date>2019-11-05</date>
         <change>Fixed issue where the configured umask was not used by the AMC script.</change>
