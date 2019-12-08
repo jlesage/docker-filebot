@@ -101,6 +101,11 @@ changes to the file system.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.7.0</version>
+        <date>2019-12-08</date>
+        <change>Added the ability to install custom Alpine Linux packages.  This allows user-defined scripts invoked by the AMC script to use tools that are normally not part of the container image.</change>
+      </release>
+      <release>
         <version>1.6.0</version>
         <date>2019-11-19</date>
         <change>Added the ability to configure the input and output folders used by the AMC script.</change>
