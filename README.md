@@ -108,6 +108,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`ENABLE_CJK_FONT`| When set to `1`, open source computer font `WenQuanYi Zen Hei` is installed.  This font contains a large range of Chinese/Japanese/Korean characters. | `0` |
 |`OPENSUBTITLES_USERNAME`| Username of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles. | (unset) |
 |`OPENSUBTITLES_PASSWORD`| Password of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles. | (unset) |
+|`FILEBOT_OPTS`| Extra options for settings and tweaks to pass to the filebot command directly and not for AMC. Ex. `FILEBOT_OPTS=-no-xattr` | (unset) 
 |`AMC_INTERVAL`| Time (in seconds) between each invocation of the Automated Media Center (AMC) script. | `1800` |
 |`AMC_INPUT_STABLE_TIME`| Time (in seconds) during which properties (e.g. size, time, etc) of files in the watch folder need to remain the same before invoking the Automated Media Center (AMC) script.  This is to avoid processing the watch folder while files are being copied. | `10` |
 |`AMC_ACTION`| Action performed by the Automated Media Center (AMC) script on files.  Valid values are `test`, `copy`, `move`, `symlink`, `hardlink`, `keeplink`, `duplicate` or `clone`.  Use the `test` operation to perform a dry-run and verify that everything gets matched up correctly. | `test` |
@@ -120,7 +121,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`AMC_ANIME_FORMAT`| Define how anime files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation. | `{plex}` |
 |`AMC_PROCESS_MUSIC`| When set to `y`, music files are processed by the Automated Media Center (AMC) script.  A value of `n` does not process them. | `y` |
 |`AMC_SUBTITLE_LANG`| Comma-separated list of subtitle languages to download.  Example: `en,de,fr`. | (unset) |
-|`AMC_CUSTOM_OPTIONS`| Custom arguments to pass to the Automated Media Center (AMC) script. | (unset) |
+|`AMC_CUSTOM_OPTIONS`| Custom arguments to pass to the Automated Media Center (AMC) script. Ex. `--def VARNAME=VALUE` | (unset) |
 |`AMC_INPUT_DIR`| Directory inside the container used as the input folder of the Automated Media Center (AMC) script. | `/watch` |
 |`AMC_OUTPUT_DIR`| Directory inside the container used as the output folder of the Automated Media Center (AMC) script. | `/output` |
 |`AMC_INSTALL_PKGS`| Space-separated list of Alpine Linux packages to install.  This is useful when the Automated Media Center (AMC) script is configured to invoke a user-defined script that requires tools not available in the container image.  See https://pkgs.alpinelinux.org/packages?name=&branch=v3.9&arch=x86_64 for the list of available Alpine Linux packages. | (unset) |
