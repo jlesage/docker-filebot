@@ -34,4 +34,4 @@ if [ ! -f /config/.licensed_version ]; then
 fi
 
 cd /storage
-exec /opt/filebot/filebot
+exec /opt/filebot/filebot ${FILEBOT_CUSTOM_OPTIONS:-}

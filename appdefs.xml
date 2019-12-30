@@ -257,6 +257,18 @@ changes to the file system.
         </unraid_template>
       </environment_variable>
       <environment_variable>
+        <name>FILEBOT_CUSTOM_OPTIONS</name>
+        <description>Custom arguments to pass to FileBot.  This apply to the UI only.</description>
+        <default></default>
+        <unraid_template>
+          <title>Custom Options</title>
+          <description>Custom arguments to pass to FileBot.  This apply to the UI only.</description>
+          <display>advanced</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
         <name>AMC_INTERVAL</name>
         <description>Time (in seconds) between each invocation of the Automated Media Center (AMC) script.</description>
         <default>1800</default>
