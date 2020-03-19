@@ -19,7 +19,6 @@ LIBRARY_PATH="/usr/lib"
 # options for this container
 CONTAINER_OPTS=" \
     -DuseGVFS=false \
-    -Xbootclasspath/p:/usr/share/java/jna.jar \
     -Dapplication.update=skip \
     -Dprism.verbose=true \
     -Dprism.order=sw \
@@ -27,7 +26,7 @@ CONTAINER_OPTS=" \
 "
 
 # start filebot
-exec /usr/lib/jvm/java-1.8-openjdk/bin/java \
+exec /opt/filebot/jre/bin/java \
     -Dapplication.deployment=docker \
     -Dnet.filebot.license="$APP_DATA/license.psm" \
     -Dnet.filebot.media.parser="$MEDIA_PARSER" \
@@ -36,8 +35,32 @@ exec /usr/lib/jvm/java-1.8-openjdk/bin/java \
     -DuseExtendedFileAttributes=true \
     -DuseCreationDate=false \
     -Djava.net.useSystemProxies=false \
-    -Djna.nosys=false \
+    -Djna.nosys=true \
     -Djna.nounpack=true \
+    --illegal-access=permit \
+    --add-opens=java.base/java.lang=ALL-UNNAMED \
+    --add-opens=java.base/java.lang.reflect=ALL-UNNAMED \
+    --add-opens=java.base/java.lang.invoke=ALL-UNNAMED \
+    --add-opens=java.base/java.util=ALL-UNNAMED \
+    --add-opens=java.base/java.util.function=ALL-UNNAMED \
+    --add-opens=java.base/java.util.regex=ALL-UNNAMED \
+    --add-opens=java.base/java.net=ALL-UNNAMED \
+    --add-opens=java.base/java.io=ALL-UNNAMED \
+    --add-opens=java.base/java.nio=ALL-UNNAMED \
+    --add-opens=java.base/java.nio.file=ALL-UNNAMED \
+    --add-opens=java.base/java.nio.file.attribute=ALL-UNNAMED \
+    --add-opens=java.base/java.nio.channels=ALL-UNNAMED \
+    --add-opens=java.base/java.nio.charset=ALL-UNNAMED \
+    --add-opens=java.base/java.time=ALL-UNNAMED \
+    --add-opens=java.base/java.time.chrono=ALL-UNNAMED \
+    --add-opens=java.base/java.util.concurrent=ALL-UNNAMED \
+    --add-opens=java.base/sun.nio.fs=ALL-UNNAMED \
+    --add-opens=java.logging/java.util.logging=ALL-UNNAMED \
+    --add-opens=java.desktop/java.awt=ALL-UNNAMED \
+    --add-opens=java.desktop/sun.awt=ALL-UNNAMED \
+    --add-opens=java.desktop/sun.swing=ALL-UNNAMED \
+    --add-opens=java.desktop/javax.swing.text.html=ALL-UNNAMED \
+    --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED \
     -Djna.boot.library.path="$LIBRARY_PATH" \
     -Djna.library.path="$LIBRARY_PATH" \
     -Djava.library.path="$LIBRARY_PATH" \
@@ -49,4 +72,5 @@ exec /usr/lib/jvm/java-1.8-openjdk/bin/java \
     -Duser.home="$APP_DATA" \
     -Djava.util.prefs.PreferencesFactory=net.filebot.util.prefs.FilePreferencesFactory \
     -Dnet.filebot.util.prefs.file="$APP_DATA/prefs.properties" \
+    -client \
     $JAVA_OPTS $FILEBOT_OPTS $CONTAINER_OPTS -jar "$FILEBOT_HOME/jar/filebot.jar" "$@"
