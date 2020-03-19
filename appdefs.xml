@@ -101,6 +101,12 @@ changes to the file system.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.9.0</version>
+        <date>2020-03-18</date>
+        <change>Upgraded FileBot to version 4.9.0.</change>
+        <change>Switched to baseimage based on Alpine 11.</change>
+      </release>
+      <release>
         <version>1.8.0</version>
         <date>2019-12-30</date>
         <change>Custom arguments can now be passed to FileBot UI via the `FILEBOT_CUSTOM_OPTIONS` environment variable.</change>
