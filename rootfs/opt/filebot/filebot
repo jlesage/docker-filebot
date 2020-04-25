@@ -23,6 +23,8 @@ CONTAINER_OPTS=" \
     -Dprism.verbose=true \
     -Dprism.order=sw \
     -Dawt.useSystemAAFontSettings=on \
+    --module-path /opt/filebot/jfx \
+    --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.swing \
 "
 
 # start filebot
