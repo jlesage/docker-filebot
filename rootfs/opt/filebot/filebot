@@ -24,6 +24,7 @@ CONTAINER_OPTS=" \
     -Dprism.verbose=true \
     -Dprism.order=sw \
     -Dawt.useSystemAAFontSettings=on \
+    -Djdk.gtk.version=2 \
 "
 
 # start filebot

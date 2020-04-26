@@ -11,12 +11,12 @@ FROM jlesage/baseimage-gui:alpine-3.9-v3.5.3
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG FILEBOT_VERSION=4.8.5
+ARG FILEBOT_VERSION=4.9.1
 ARG OPENJFX_VERSION=8.151.12-r0
 ARG CHROMAPRINT_VERSION=1.4.3
 
 # Define software download URLs.
-ARG FILEBOT_URL=https://get.filebot.net/filebot/FileBot_${FILEBOT_VERSION}/FileBot_${FILEBOT_VERSION}-portable.tar.xz
+ARG FILEBOT_URL=https://get.filebot.net/filebot/FileBot_${FILEBOT_VERSION}/FileBot_${FILEBOT_VERSION}-portable-jdk8.tar.xz
 ARG OPENJFX_URL=https://github.com/sgerrand/alpine-pkg-java-openjfx/releases/download/${OPENJFX_VERSION}/java-openjfx-${OPENJFX_VERSION}.apk
 ARG CHROMAPRINT_URL=https://github.com/acoustid/chromaprint/archive/v${CHROMAPRINT_VERSION}.tar.gz
 
