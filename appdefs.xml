@@ -101,6 +101,11 @@ changes to the file system.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.9.2</version>
+        <date>2020-06-24</date>
+        <change>Improved handling of options contained in `AMC_CUSTOM_OPTIONS`.</change>
+      </release>
+      <release>
         <version>1.9.1</version>
         <date>2020-04-25</date>
         <change>Upgraded FileBot to version 4.9.1.</change>
