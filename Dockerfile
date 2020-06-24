@@ -43,6 +43,7 @@ RUN \
     curl -# -L -o java-openjfx.apk ${OPENJFX_URL} && \
     apk --no-cache add --allow-untrusted ./java-openjfx.apk && \
     add-pkg \
+        bash \
         p7zip \
         unrar \
         findutils \

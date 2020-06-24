@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv sh
+#!/usr/bin/with-contenv bash
 
 set -u # Treat unset variables as an error.
 
@@ -51,7 +51,11 @@ AMC_SERIES_FORMAT="${AMC_SERIES_FORMAT:-\{plex\}}"
 AMC_ANIME_FORMAT="${AMC_ANIME_FORMAT:-\{plex\}}"
 AMC_PROCESS_MUSIC="${AMC_PROCESS_MUSIC:-y}"
 AMC_SUBTITLE_LANG="${AMC_SUBTITLE_LANG:-}"
-AMC_CUSTOM_OPTIONS="${AMC_CUSTOM_OPTIONS:-}"
+
+# Store custom options in an array.  This is required to handle more complex
+# options.  For example, "--filter 'age < 30'" needs to be passed as 2 separate
+# arguments to FileBot.
+eval "AMC_CUSTOM_OPTIONS=(${AMC_CUSTOM_OPTIONS:-})"
 
 AMC_INPUT_DIR="${AMC_INPUT_DIR:-/watch}"
 AMC_OUTPUT_DIR="${AMC_OUTPUT_DIR:-/output}"
@@ -59,11 +63,11 @@ AMC_EXCLUDE_LIST="/config/amc-exlude-list.txt"
 AMC_LOG_FILE="/config/log/amc.log"
 
 if [ -n "$AMC_SUBTITLE_LANG" ]; then
-    AMC_CUSTOM_OPTIONS="--def subtitles=$AMC_SUBTITLE_LANG $AMC_CUSTOM_OPTIONS"
+    AMC_CUSTOM_OPTIONS=("--def" "subtitles=$AMC_SUBTITLE_LANG" "${AMC_CUSTOM_OPTIONS[@]}")
 fi
 
 if [ "$AMC_MATCH_MODE" = "opportunistic" ]; then
-    AMC_CUSTOM_OPTIONS="-non-strict $AMC_CUSTOM_OPTIONS"
+    AMC_CUSTOM_OPTIONS=("-non-strict" "${AMC_CUSTOM_OPTIONS[@]}")
 fi
 
 WATCHDIR_HASH_calculate() {
@@ -138,7 +142,7 @@ while true; do
         --def musicFormat="$AMC_MUSIC_FORMAT" \
         --def seriesFormat="$AMC_SERIES_FORMAT" \
         --def animeFormat="$AMC_ANIME_FORMAT" \
-        $AMC_CUSTOM_OPTIONS 2>&1 | process_filebot_output
+        "${AMC_CUSTOM_OPTIONS[@]}" 2>&1 | process_filebot_output
 done
 
 # vim: set ft=sh :
