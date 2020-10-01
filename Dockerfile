@@ -128,8 +128,8 @@ ENV APP_NAME="FileBot" \
     AMC_PROCESS_MUSIC="y" \
     AMC_SUBTITLE_LANG= \
     AMC_CUSTOM_OPTIONS= \
-    AMC_INPUT_FOLDER=/watch \
-    AMC_OUTPUT_FOLDER=/output
+    AMC_INPUT_DIR=/watch \
+    AMC_OUTPUT_DIR=/output
 
 # Define mountable directories.
 VOLUME ["/config"]
