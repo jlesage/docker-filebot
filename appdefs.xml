@@ -101,6 +101,15 @@ changes to the file system.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.10.0</version>
+        <date>2020-10-01</date>
+        <change>Upgraded FileBot to version 4.9.2.</change>
+        <change>Updated baseimage to version 3.5.6, which brings the following changes:</change>
+        <change level="2">Upgraded glibc to version 2.31 on Alpine Linux images with glibc integrated.</change>
+        <change level="2">Updated installed packages to get latest security fixes.</change>
+        <change level="2">Adjusted the log monitor target for recent versions of YAD.</change>
+      </release>
+      <release>
         <version>1.9.2</version>
         <date>2020-06-24</date>
         <change>Improved handling of options contained in `AMC_CUSTOM_OPTIONS`.</change>
