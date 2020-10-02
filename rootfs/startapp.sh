@@ -1,5 +1,7 @@
 #!/usr/bin/with-contenv sh
 
+export HOME=/config
+
 show_upgrade_info() {
     URL="$1"
     XDG_BASE="$(mktemp -d)"
