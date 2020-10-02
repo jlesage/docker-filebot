@@ -50,6 +50,8 @@ RUN \
         coreutils \
         nss \
         gtk+2.0 \
+        gsettings-desktop-schemas \
+        dconf \
         openjdk8-jre \
         java-jna \
         libmediainfo \
