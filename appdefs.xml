@@ -101,6 +101,11 @@ changes to the file system.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.10.2</version>
+        <date>2020-10-02</date>
+        <change>Fixed issue where selecting a file/folder would show an error message.</change>
+      </release>
+      <release>
         <version>1.10.1</version>
         <date>2020-10-02</date>
         <change>Fixed issue where FileBot and AMC would crash/hang.</change>
