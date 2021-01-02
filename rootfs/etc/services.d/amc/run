@@ -143,6 +143,11 @@ while true; do
         --def seriesFormat="$AMC_SERIES_FORMAT" \
         --def animeFormat="$AMC_ANIME_FORMAT" \
         "${AMC_CUSTOM_OPTIONS[@]}" 2>&1 | process_filebot_output
+
+    # Properly clean the watch directory, if desired
+    if [ -n "$AMC_PROPER_CLEAN" ]; then
+        rm -r "$AMC_INPUT_DIR/*"
+    fi
 done
 
 # vim: set ft=sh :
