@@ -11,29 +11,27 @@ FROM jlesage/baseimage-gui:alpine-3.9-v3.5.6
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG FILEBOT_VERSION=4.9.2
+ARG FILEBOT_VERSION=4.7.9
 ARG OPENJFX_VERSION=8.151.12-r0
 ARG CHROMAPRINT_VERSION=1.4.3
 
 # Define software download URLs.
-ARG FILEBOT_URL=https://get.filebot.net/filebot/FileBot_${FILEBOT_VERSION}/FileBot_${FILEBOT_VERSION}-portable-jdk8.tar.xz
 ARG OPENJFX_URL=https://github.com/sgerrand/alpine-pkg-java-openjfx/releases/download/${OPENJFX_VERSION}/java-openjfx-${OPENJFX_VERSION}.apk
 ARG CHROMAPRINT_URL=https://github.com/acoustid/chromaprint/archive/v${CHROMAPRINT_VERSION}.tar.gz
 
 # Define working directory.
 WORKDIR /tmp
 
+COPY downloads/FileBot_4.7.9-portable.tar.xz /tmp/FileBot_4.7.9-portable.tar.xz
+
 # Install FileBot.
 RUN \
-    add-pkg --virtual build-dependencies curl && \
-    mkdir filebot && \
-    # Download sources.
-    curl -# -L ${FILEBOT_URL} | tar xJ -C filebot && \
+    # Extract sources.
+    tar -xf FileBot_4.7.9-portable.tar.xz FileBot.jar && \
     # Install.
     mkdir /opt/filebot && \
-    cp -Rv filebot/jar /opt/filebot/ && \
+    cp -Rv FileBot.jar /opt/filebot/filebot.jar && \
     # Cleanup.
-    del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
 
 # Install dependencies.
@@ -144,5 +142,5 @@ LABEL \
       org.label-schema.name="filebot" \
       org.label-schema.description="Docker container for FileBot" \
       org.label-schema.version="$DOCKER_IMAGE_VERSION" \
-      org.label-schema.vcs-url="https://github.com/jlesage/docker-filebot" \
+      org.label-schema.vcs-url="https://github.com/NeverminedDE/docker-filebot" \
       org.label-schema.schema-version="1.0"

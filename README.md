@@ -1,7 +1,7 @@
 # Docker container for FileBot
 [![Docker Image Size](https://img.shields.io/microbadger/image-size/jlesage/filebot)](http://microbadger.com/#/images/jlesage/filebot) [![Build Status](https://drone.le-sage.com/api/badges/jlesage/docker-filebot/status.svg)](https://drone.le-sage.com/jlesage/docker-filebot) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-filebot.svg)](https://github.com/jlesage/docker-filebot/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
 
-This is a Docker container for [FileBot](http://www.filebot.net/).
+This is a Docker container for [FileBot](http://www.filebot.net/) with version 4.7.9 (latest free version).
 
 The GUI of the application is accessed through a modern web browser (no installation or configuration needed on the client side) or via any VNC client.
 

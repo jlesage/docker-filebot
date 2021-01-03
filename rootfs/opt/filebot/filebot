@@ -50,4 +50,4 @@ exec /usr/lib/jvm/java-1.8-openjdk/bin/java \
     -Duser.home="$APP_DATA" \
     -Djava.util.prefs.PreferencesFactory=net.filebot.util.prefs.FilePreferencesFactory \
     -Dnet.filebot.util.prefs.file="$APP_DATA/prefs.properties" \
-    $JAVA_OPTS $FILEBOT_OPTS $CONTAINER_OPTS -jar "$FILEBOT_HOME/jar/filebot.jar" "$@"
+    $JAVA_OPTS $FILEBOT_OPTS $CONTAINER_OPTS -jar "$FILEBOT_HOME/filebot.jar" "$@"
