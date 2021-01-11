@@ -139,6 +139,10 @@ VOLUME ["/storage"]
 VOLUME ["/watch"]
 VOLUME ["/output"]
 
+# Expose Ports
+EXPOSE 5800
+EXPOSE 5900
+
 # Metadata.
 LABEL \
       org.label-schema.name="filebot" \
