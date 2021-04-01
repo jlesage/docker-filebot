@@ -101,6 +101,11 @@ changes to the file system.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.11.1</version>
+        <date>2021-04-01</date>
+        <change>Updated MediaInfo library to version 21.03.</change>
+      </release>
+      <release>
         <version>1.11.0</version>
         <date>2021-03-31</date>
         <change>Updated FileBot to version 4.9.3 (r8340).</change>
