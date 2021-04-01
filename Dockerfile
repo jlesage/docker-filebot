@@ -14,11 +14,13 @@ ARG DOCKER_IMAGE_VERSION=unknown
 ARG FILEBOT_VERSION=4.9.3
 ARG OPENJFX_VERSION=8.151.12-r0
 ARG CHROMAPRINT_VERSION=1.4.3
+ARG MEDIAINFOLIB_VERSION=21.03
 
 # Define software download URLs.
 ARG FILEBOT_URL=https://get.filebot.net/filebot/FileBot_${FILEBOT_VERSION}/FileBot_${FILEBOT_VERSION}-portable-jdk8.tar.xz
 ARG OPENJFX_URL=https://github.com/sgerrand/alpine-pkg-java-openjfx/releases/download/${OPENJFX_VERSION}/java-openjfx-${OPENJFX_VERSION}.apk
 ARG CHROMAPRINT_URL=https://github.com/acoustid/chromaprint/archive/v${CHROMAPRINT_VERSION}.tar.gz
+ARG MEDIAINFOLIB_URL=https://mediaarea.net/download/source/libmediainfo/${MEDIAINFOLIB_VERSION}/libmediainfo_${MEDIAINFOLIB_VERSION}.tar.xz
 
 # Define working directory.
 WORKDIR /tmp
@@ -33,6 +35,57 @@ RUN \
     mkdir /opt/filebot && \
     cp -Rv filebot/jar /opt/filebot/ && \
     # Cleanup.
+    del-pkg build-dependencies && \
+    rm -rf /tmp/* /tmp/.[!.]*
+
+# Compile and install MediaInfo library.
+RUN \
+    # Install packages needed by the build.
+    add-pkg --virtual build-dependencies \
+        build-base \
+        curl \
+        cmake \
+        automake \
+        autoconf \
+        libtool \
+        curl-dev \
+        libzen-dev \
+        tinyxml2-dev \
+        && \
+    # Set same default compilation flags as abuild.
+    export CFLAGS="-Os -fomit-frame-pointer" && \
+    export CXXFLAGS="$CFLAGS" && \
+    export CPPFLAGS="$CFLAGS" && \
+    export LDFLAGS="-Wl,--as-needed" && \
+    # Download MediaInfoLib.
+    echo "Downloading MediaInfoLib package..." && \
+    mkdir MediaInfoLib && \
+    curl -# -L ${MEDIAINFOLIB_URL} | tar xJ --strip 1 -C MediaInfoLib && \
+    rm -r \
+        MediaInfoLib/Project/MS* \
+        MediaInfoLib/Project/zlib \
+        MediaInfoLib/Source/ThirdParty/tinyxml2 \
+        && \
+    # Compile MediaInfoLib.
+    echo "Compiling MediaInfoLib..." && \
+    cd MediaInfoLib/Project/CMake && \
+    cmake -DCMAKE_BUILD_TYPE=None \
+          -DCMAKE_INSTALL_PREFIX=/usr \
+          -DCMAKE_VERBOSE_MAKEFILE=OFF \
+          -DBUILD_SHARED_LIBS=ON \
+          && \
+    make -j$(nproc) install && \
+    cd ../../../ && \
+    # Strip.
+    strip -v /usr/lib/libmediainfo.so && \
+    cd ../ && \
+    # Cleanup.
+    rm -r \
+        /usr/include/MediaInfo \
+        /usr/include/MediaInfoDLL \
+        /usr/lib/cmake/mediainfolib \
+        /usr/lib/pkgconfig/libmediainfo.pc \
+        && \
     del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
 
@@ -54,7 +107,10 @@ RUN \
         dconf \
         openjdk8-jre \
         java-jna \
-        libmediainfo \
+        # For libmediainfo.
+        libzen \
+        libcurl \
+        tinyxml2 \
         && \
     # YAD
     add-pkg yad && \
