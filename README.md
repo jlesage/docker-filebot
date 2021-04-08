@@ -189,7 +189,6 @@ version: '3'
 services:
   filebot:
     image: jlesage/filebot
-    build: .
     ports:
       - "5800:5800"
     volumes:
