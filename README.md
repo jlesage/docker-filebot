@@ -110,6 +110,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`OPENSUBTITLES_PASSWORD`| Password of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles. | (unset) |
 |`FILEBOT_CUSTOM_OPTIONS`| Custom arguments to pass to FileBot.  This apply to the UI only. | (unset) |
 |`AMC_INTERVAL`| Time (in seconds) between each invocation of the Automated Media Center (AMC) script. | `1800` |
+|`AMC_PROPER_CLEAN`| If this is set, all files in the watch directory will be removed after FileBot ran | not set |
 |`AMC_INPUT_STABLE_TIME`| Time (in seconds) during which properties (e.g. size, time, etc) of files in the watch folder need to remain the same before invoking the Automated Media Center (AMC) script.  This is to avoid processing the watch folder while files are being copied. | `10` |
 |`AMC_ACTION`| Action performed by the Automated Media Center (AMC) script on files.  Valid values are `test`, `copy`, `move`, `symlink`, `hardlink`, `keeplink`, `duplicate` or `clone`.  Use the `test` operation to perform a dry-run and verify that everything gets matched up correctly. | `test` |
 |`AMC_CONFLICT`| Conflict resolution strategy used by the Automated Media Center (AMC) script: `skip` never overrides existing files, while `auto` overrides existing file only if new media is better. | `auto` |
