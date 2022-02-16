@@ -14,7 +14,7 @@ ARG DOCKER_IMAGE_VERSION=unknown
 ARG FILEBOT_VERSION=4.9.4
 ARG OPENJFX_VERSION=8.151.12-r0
 ARG CHROMAPRINT_VERSION=1.4.3
-ARG MEDIAINFOLIB_VERSION=21.03
+ARG MEDIAINFOLIB_VERSION=21.09
 
 # Define software download URLs.
 ARG FILEBOT_URL=https://get.filebot.net/filebot/FileBot_${FILEBOT_VERSION}/FileBot_${FILEBOT_VERSION}-portable-jdk8.tar.xz
@@ -66,6 +66,7 @@ RUN \
         MediaInfoLib/Project/zlib \
         MediaInfoLib/Source/ThirdParty/tinyxml2 \
         && \
+    curl -# -L https://github.com/MediaArea/MediaInfoLib/commit/cd6d5cb1cfe03d4fcef8fd38decd04765c19890a.patch | patch -p1 -d MediaInfoLib && \
     # Compile MediaInfoLib.
     echo "Compiling MediaInfoLib..." && \
     cd MediaInfoLib/Project/CMake && \
