@@ -4,6 +4,26 @@
 # https://github.com/jlesage/docker-filebot
 #
 
+# Build unrar.  It has been moved to non-free since Alpine 3.15.
+# https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.15.0#unrar_moved_to_non-free
+FROM jlesage/alpine-abuild:3.15 AS unrar
+WORKDIR /tmp
+RUN \
+    mkdir /tmp/aport && \
+    cd /tmp/aport && \
+    git init && \
+    git remote add origin https://git.alpinelinux.org/aports && \
+    git config core.sparsecheckout true && \
+    echo "non-free/unrar/*" >> .git/info/sparse-checkout && \
+    git pull origin 3.15-stable && \
+    PKG_SRC_DIR=/tmp/aport/non-free/unrar && \
+    PKG_DST_DIR=/tmp/unrar-pkg && \
+    mkdir "$PKG_DST_DIR" && \
+    /bin/start-build -r && \
+    rm /tmp/unrar-pkg/*-doc-* && \
+    mkdir /tmp/unrar-install && \
+    tar xf /tmp/unrar-pkg/unrar-*.apk -C /tmp/unrar-install
+
 # Pull base image.
 FROM jlesage/baseimage-gui:alpine-3.15-v3.5.8
 
@@ -93,7 +113,6 @@ RUN \
     add-pkg \
         bash \
         p7zip \
-        unrar \
         findutils \
         coreutils \
         yad \
@@ -160,6 +179,7 @@ RUN \
 
 # Add files.
 COPY rootfs/ /
+COPY --from=unrar /tmp/unrar-install/usr/bin/unrar /usr/bin/
 
 # Set environment variables.
 ENV APP_NAME="FileBot" \
