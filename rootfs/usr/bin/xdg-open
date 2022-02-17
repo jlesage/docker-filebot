@@ -21,7 +21,7 @@ show_license_purchase_info() {
         --text "<b>Purchase License</b>" \
         --form \
         --field "To purchase a license for $APP_NAME, please visit:\n\n<span foreground=\"blue\">$URL</span>\n\nOnce purchased, copy the license file received to your email address to the folder mapped to <i>/config</i> and restart the container.:LBL" \
-        --button=gtk-ok:0 > /dev/null || true
+        --button=yad-ok:0 > /dev/null || true
 
     rm -r "$XDG_BASE"
 }

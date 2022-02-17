@@ -5,20 +5,18 @@
 #
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.9-v3.5.7
+FROM jlesage/baseimage-gui:alpine-3.15-v3.5.8
 
 # Docker image version is provided via build arg.
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
 ARG FILEBOT_VERSION=4.9.4
-ARG OPENJFX_VERSION=8.151.12-r0
 ARG CHROMAPRINT_VERSION=1.4.3
 ARG MEDIAINFOLIB_VERSION=21.09
 
 # Define software download URLs.
-ARG FILEBOT_URL=https://get.filebot.net/filebot/FileBot_${FILEBOT_VERSION}/FileBot_${FILEBOT_VERSION}-portable-jdk8.tar.xz
-ARG OPENJFX_URL=https://github.com/sgerrand/alpine-pkg-java-openjfx/releases/download/${OPENJFX_VERSION}/java-openjfx-${OPENJFX_VERSION}.apk
+ARG FILEBOT_URL=https://get.filebot.net/filebot/FileBot_${FILEBOT_VERSION}/FileBot_${FILEBOT_VERSION}-portable.tar.xz
 ARG CHROMAPRINT_URL=https://github.com/acoustid/chromaprint/archive/v${CHROMAPRINT_VERSION}.tar.gz
 ARG MEDIAINFOLIB_URL=https://mediaarea.net/download/source/libmediainfo/${MEDIAINFOLIB_VERSION}/libmediainfo_${MEDIAINFOLIB_VERSION}.tar.xz
 
@@ -92,32 +90,26 @@ RUN \
 
 # Install dependencies.
 RUN \
-    add-pkg --virtual build-dependencies curl && \
-    # OpenJFX
-    curl -# -L -o java-openjfx.apk ${OPENJFX_URL} && \
-    apk --no-cache add --allow-untrusted ./java-openjfx.apk && \
     add-pkg \
         bash \
         p7zip \
         unrar \
         findutils \
         coreutils \
-        nss \
-        gtk+2.0 \
-        gsettings-desktop-schemas \
-        dconf \
-        openjdk8-jre \
-        java-jna \
+        yad \
+        gtk+3.0 \
+        ttf-dejavu \
+        gnome-icon-theme \
+        openjdk17-jre \
+        java-jna-native \
+        # For chromaprint (fpcalc)
+        ffmpeg-libs \
         # For libmediainfo.
         libzen \
         libcurl \
         tinyxml2 \
         && \
-    # YAD
-    add-pkg yad && \
-    # Cleanup.
-    del-pkg build-dependencies && \
-    rm -rf /tmp/* /tmp/.[!.]*
+    true
 
 # Build and install chromaprint (fpcalc) for AcousItD.
 RUN \
@@ -149,7 +141,6 @@ RUN \
        /usr/include/chromaprint.h \
        && \
     rmdir /usr/include \
-          /usr/lib/pkgconfig \
           && \
     rm -rf /tmp/* /tmp/.[!.]*
 

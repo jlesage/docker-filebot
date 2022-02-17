@@ -17,18 +17,19 @@ MEDIA_PARSER="libmediainfo"
 LIBRARY_PATH="/usr/lib"
 
 # options for this container
+# NOTE: Use a file dialog that doesn't require JavaFX.
+# See:
+#   https://www.filebot.net/forums/viewtopic.php?p=53552#p53552
+#   https://www.filebot.net/forums/viewtopic.php?t=3913
 CONTAINER_OPTS=" \
     -DuseGVFS=false \
-    -Xbootclasspath/p:/usr/share/java/jna.jar \
     -Dapplication.update=skip \
-    -Dprism.verbose=true \
-    -Dprism.order=sw \
     -Dawt.useSystemAAFontSettings=on \
-    -Djdk.gtk.version=2 \
+    -Dnet.filebot.UserFiles.fileChooser=AWT \
 "
 
 # start filebot
-exec /usr/lib/jvm/java-1.8-openjdk/bin/java \
+exec /usr/lib/jvm/default-jvm/bin/java \
     -Dapplication.deployment=docker \
     -Dnet.filebot.license="$APP_DATA/license.psm" \
     -Dnet.filebot.media.parser="$MEDIA_PARSER" \
@@ -50,4 +51,5 @@ exec /usr/lib/jvm/java-1.8-openjdk/bin/java \
     -Duser.home="$APP_DATA" \
     -Djava.util.prefs.PreferencesFactory=net.filebot.util.prefs.FilePreferencesFactory \
     -Dnet.filebot.util.prefs.file="$APP_DATA/prefs.properties" \
+    -client \
     $JAVA_OPTS $FILEBOT_OPTS $CONTAINER_OPTS -jar "$FILEBOT_HOME/jar/filebot.jar" "$@"

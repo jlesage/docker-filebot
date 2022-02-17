@@ -124,7 +124,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`AMC_CUSTOM_OPTIONS`| Custom arguments to pass to the Automated Media Center (AMC) script. | (unset) |
 |`AMC_INPUT_DIR`| Directory inside the container used as the input folder of the Automated Media Center (AMC) script. | `/watch` |
 |`AMC_OUTPUT_DIR`| Directory inside the container used as the output folder of the Automated Media Center (AMC) script. | `/output` |
-|`AMC_INSTALL_PKGS`| Space-separated list of Alpine Linux packages to install.  This is useful when the Automated Media Center (AMC) script is configured to invoke a user-defined script that requires tools not available in the container image.  See https://pkgs.alpinelinux.org/packages?name=&branch=v3.9&arch=x86_64 for the list of available Alpine Linux packages. | (unset) |
+|`AMC_INSTALL_PKGS`| Space-separated list of Alpine Linux packages to install.  This is useful when the Automated Media Center (AMC) script is configured to invoke a user-defined script that requires tools not available in the container image.  See https://pkgs.alpinelinux.org/packages?name=&branch=v3.15&arch=x86_64 for the list of available Alpine Linux packages. | (unset) |
 
 ### Data Volumes
 

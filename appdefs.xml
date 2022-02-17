@@ -508,7 +508,7 @@ changes to the file system.
       </environment_variable>
       <environment_variable>
         <name>AMC_INSTALL_PKGS</name>
-        <description>Space-separated list of Alpine Linux packages to install.  This is useful when the Automated Media Center (AMC) script is configured to invoke a user-defined script that requires tools not available in the container image.  See https://pkgs.alpinelinux.org/packages?name=&amp;branch=v3.9&amp;arch=x86_64 for the list of available Alpine Linux packages.</description>
+        <description>Space-separated list of Alpine Linux packages to install.  This is useful when the Automated Media Center (AMC) script is configured to invoke a user-defined script that requires tools not available in the container image.  See https://pkgs.alpinelinux.org/packages?name=&amp;branch=v3.15&amp;arch=x86_64 for the list of available Alpine Linux packages.</description>
         <default/>
         <unraid_template>
           <title>Automated Media Center: Install Packages</title>
