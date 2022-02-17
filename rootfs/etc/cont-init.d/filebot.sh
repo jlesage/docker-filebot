@@ -44,7 +44,8 @@ log() {
     fi
 }
 
-LICENSE_PATH=/config/license.psm
+LICENSE_FILE_NAME="license.psm"
+LICENSE_PATH=/config/"$LICENSE_FILE_NAME"
 
 # Make sure required directories exists
 mkdir -p "$XDG_DATA_HOME"
@@ -60,16 +61,18 @@ fi
 echo > /etc/fstab
 
 # Install the license to the proper location.
-if [ ! -f "$LICENSE_PATH" ]; then
-    LFILE="$(find /config -maxdepth 1 -name "*.psm" -type f)"
-    if [ "${LFILE:-UNSET}" != "UNSET" ]; then
-        LFILE_COUNT="$(echo "$LFILE" | wc -l)"
-        if [ "$LFILE_COUNT" -eq 1 ]; then
-            log "installing license file $(basename "$LFILE")..."
-            mv "$LFILE" "$LICENSE_PATH"
-        else
-            log "multiple license files found: skipping installation"
+LFILE="$(find /config -maxdepth 1 ! -name "$LICENSE_FILE_NAME" -name "*.psm" -type f)"
+if [ "${LFILE:-UNSET}" != "UNSET" ]; then
+    LFILE_COUNT="$(echo "$LFILE" | wc -l)"
+    if [ "$LFILE_COUNT" -eq 1 ]; then
+        if [ -f "$LICENSE_PATH" ]; then
+            log "existing license will be replaced."
+            mv "$LICENSE_PATH" "$LICENSE_PATH".old
         fi
+        log "installing license file $(basename "$LFILE")..."
+        mv "$LFILE" "$LICENSE_PATH"
+    else
+        log "multiple license files found: skipping installation"
     fi
 fi
 
