@@ -191,6 +191,7 @@ ENV APP_NAME="FileBot" \
     AMC_CONFLICT="auto" \
     AMC_MATCH_MODE="opportunistic" \
     AMC_ARTWORK="n" \
+    AMC_LANG="English" \
     AMC_MUSIC_FORMAT="{plex}" \
     AMC_MOVIE_FORMAT="{plex}" \
     AMC_SERIES_FORMAT="{plex}" \

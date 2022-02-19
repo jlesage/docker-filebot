@@ -45,6 +45,7 @@ AMC_ACTION="${AMC_ACTION:-test}"
 AMC_CONFLICT="${AMC_CONFLICT:-auto}"
 AMC_MATCH_MODE="${AMC_MATCH_MODE:-opportunistic}"
 AMC_ARTWORK="${AMC_ARTWORK:-n}"
+AMC_LANG="${AMC_LANG:-English}"
 AMC_MUSIC_FORMAT="${AMC_MUSIC_FORMAT:-\{plex\}}"
 AMC_MOVIE_FORMAT="${AMC_MOVIE_FORMAT:-\{plex\}}"
 AMC_SERIES_FORMAT="${AMC_SERIES_FORMAT:-\{plex\}}"
@@ -61,6 +62,13 @@ AMC_INPUT_DIR="${AMC_INPUT_DIR:-/watch}"
 AMC_OUTPUT_DIR="${AMC_OUTPUT_DIR:-/output}"
 AMC_EXCLUDE_LIST="/config/amc-exlude-list.txt"
 AMC_LOG_FILE="/config/log/amc.log"
+
+if [ -n "$AMC_LANG" ]; then
+    # Make sure `--lang` is not already set in AMC_CUSTOM_OPTIONS.
+    if [[ ! "${AMC_CUSTOM_OPTIONS[*]}" =~ "--lang" ]]; then
+        AMC_CUSTOM_OPTIONS=("--lang" "$AMC_LANG" "${AMC_CUSTOM_OPTIONS[@]}")
+    fi
+fi
 
 if [ -n "$AMC_SUBTITLE_LANG" ]; then
     AMC_CUSTOM_OPTIONS=("--def" "subtitles=$AMC_SUBTITLE_LANG" "${AMC_CUSTOM_OPTIONS[@]}")

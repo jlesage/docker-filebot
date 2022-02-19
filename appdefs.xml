@@ -399,6 +399,17 @@ changes to the file system.
         </unraid_template>
       </environment_variable>
       <environment_variable>
+        <name>AMC_LANG</name>
+        <description>Language used by the Automated Media Center (AMC) script to rename files.  Two-characters language code or value like English, French, German, Chinese, etc can be used. </description>
+        <default>English</default>
+        <unraid_template>
+          <title>Automated Media Center: Language</title>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
         <name>AMC_MUSIC_FORMAT</name>
         <description>Define how music files are renamed by the Automated Media Center (AMC) script.  Filebot supports a very powerful naming scheme.  See [Format Expressions](https://www.filebot.net/naming.html) for complete documentation.</description>
         <default>{plex}</default>
