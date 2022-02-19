@@ -93,18 +93,15 @@ RUN \
           -DCMAKE_VERBOSE_MAKEFILE=OFF \
           -DBUILD_SHARED_LIBS=ON \
           && \
-    make -j$(nproc) install && \
+    make -j$(nproc) && \
+    make DESTDIR=/tmp/libmediainfo-install install && \
     cd ../../../ && \
+    # Install MediaInfoLib.
+    cp -av /tmp/libmediainfo-install/usr/lib/libmediainfo.so* /usr/lib/ && \
     # Strip.
-    strip -v /usr/lib/libmediainfo.so && \
+    strip -v /usr/lib/libmediainfo.so.*.* && \
     cd ../ && \
     # Cleanup.
-    rm -r \
-        /usr/include/MediaInfo \
-        /usr/include/MediaInfoDLL \
-        /usr/lib/cmake/mediainfolib \
-        /usr/lib/pkgconfig/libmediainfo.pc \
-        && \
     del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
 
@@ -148,19 +145,18 @@ RUN \
     cmake \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
+        -DBUILD_SHARED_LIBS=OFF \
         -DBUILD_TOOLS=ON \
+        -DBUILD_TESTS=OFF \
         .. && \
     make -j$(nproc) && \
-    make install && \
+    make DESTDIR=/tmp/chromaprint-install install && \
     cd .. && \
     cd .. && \
+    cp -v /tmp/chromaprint-install/usr/bin/fpcalc /usr/bin/ && \
+    strip /usr/bin/fpcalc && \
     # Cleanup.
     del-pkg build-dependencies && \
-    rm /usr/lib/pkgconfig/libchromaprint.pc \
-       /usr/include/chromaprint.h \
-       && \
-    rmdir /usr/include \
-          && \
     rm -rf /tmp/* /tmp/.[!.]*
 
 # Adjust the openbox config.
