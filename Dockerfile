@@ -34,11 +34,13 @@ ARG DOCKER_IMAGE_VERSION=unknown
 ARG FILEBOT_VERSION=4.9.4
 ARG CHROMAPRINT_VERSION=1.5.1
 ARG MEDIAINFOLIB_VERSION=21.09
+ARG YAD_VERSION=10.1
 
 # Define software download URLs.
 ARG FILEBOT_URL=https://get.filebot.net/filebot/FileBot_${FILEBOT_VERSION}/FileBot_${FILEBOT_VERSION}-portable.tar.xz
 ARG CHROMAPRINT_URL=https://github.com/acoustid/chromaprint/archive/v${CHROMAPRINT_VERSION}.tar.gz
 ARG MEDIAINFOLIB_URL=https://mediaarea.net/download/source/libmediainfo/${MEDIAINFOLIB_VERSION}/libmediainfo_${MEDIAINFOLIB_VERSION}.tar.xz
+ARG YAD_URL=https://github.com/v1cont/yad/releases/download/v${YAD_VERSION}/yad-${YAD_VERSION}.tar.xz
 
 # Define working directory.
 WORKDIR /tmp
@@ -112,7 +114,6 @@ RUN \
         p7zip \
         findutils \
         coreutils \
-        yad \
         gtk+3.0 \
         ttf-dejavu \
         gnome-icon-theme \
@@ -155,6 +156,46 @@ RUN \
     cd .. && \
     cp -v /tmp/chromaprint-install/usr/bin/fpcalc /usr/bin/ && \
     strip /usr/bin/fpcalc && \
+    # Cleanup.
+    del-pkg build-dependencies && \
+    rm -rf /tmp/* /tmp/.[!.]*
+
+# Build and install YAD.
+# NOTE: YAD is compiled manually because the version on the Alpine repository
+#       pulls too much dependencies.
+RUN \
+    # Install packages needed by the build.
+    add-pkg --virtual build-dependencies \
+        build-base \
+        curl \
+        intltool \
+        gtk+3.0-dev \
+        && \
+    # Set same default compilation flags as abuild.
+    export CFLAGS="-Os -fomit-frame-pointer" && \
+    export CXXFLAGS="$CFLAGS" && \
+    export CPPFLAGS="$CFLAGS" && \
+    export LDFLAGS="-Wl,--as-needed" && \
+    # Download.
+    mkdir yad && \
+    echo "Downloading YAD package..." && \
+    curl -# -L ${YAD_URL} | tar xJ --strip 1  -C yad && \
+    # Compile.
+    cd yad && \
+    ./configure \
+        --prefix=/usr \
+        --enable-standalone \
+        --disable-icon-browser \
+        --disable-html \
+        --disable-spell \
+        --disable-sourceview \
+        --disable-tools \
+        --disable-tray \
+        && \
+    make -j$(nproc) && \
+    make install && \
+    strip /usr/bin/yad && \
+    cd .. && \
     # Cleanup.
     del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
