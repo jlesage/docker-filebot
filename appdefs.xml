@@ -318,11 +318,11 @@ changes to the file system.
       </environment_variable>
       <environment_variable>
         <name>FILEBOT_CUSTOM_OPTIONS</name>
-        <description>Custom arguments to pass to FileBot.  This apply to the UI only.</description>
+        <description>Custom arguments to pass to FileBot.  This applies to the UI only.</description>
         <default></default>
         <unraid_template>
           <title>Custom Options</title>
-          <description>Custom arguments to pass to FileBot.  This apply to the UI only.</description>
+          <description>Custom arguments to pass to FileBot.  This applies to the UI only.</description>
           <display>advanced</display>
           <required>false</required>
           <mask>false</mask>
