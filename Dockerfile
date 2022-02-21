@@ -114,6 +114,7 @@ RUN \
         p7zip \
         findutils \
         coreutils \
+        curl \
         gtk+3.0 \
         ttf-dejavu \
         gnome-icon-theme \
@@ -220,6 +221,7 @@ COPY --from=unrar /tmp/unrar-install/usr/bin/unrar /usr/bin/
 
 # Set environment variables.
 ENV APP_NAME="FileBot" \
+    USE_FILEBOT_BETA="0" \
     OPENSUBTITLES_USERNAME= \
     OPENSUBTITLES_PASSWORD= \
     AMC_INTERVAL="1800" \

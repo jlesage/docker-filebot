@@ -97,6 +97,26 @@ changes to the file system.
 [Data Volumes](#data-volumes) section.
         </content>
       </section>
+      <section>
+        <title level="3">Using a Beta Version</title>
+        <content>
+This container provides the stable version of {{ defs.app.friendly_name }}.
+However, it's possible to use a beta version when needed.  This is done by
+setting the environment variable `USE_FILEBOT_BETA` to `1`.
+
+When set, the custom {{ defs.app.friendly_name }} installation located under
+`/config/beta` (container path) is used (instead of the stable version).
+
+{{ defs.app.friendly_name }} beta version can be installed manually, by
+downloading the portable version from https://get.filebot.net/filebot/BETA and
+extracting the package to `/config/beta`.  Else, the latest beta version is
+downloaded automatically during the startup of the container if no installation
+is found under `/config/beta`.
+
+**NOTE**: Beta version may have bugs and stability issues.  Use at your own
+risk.
+        </content>
+      </section>
     </documentation>
     <!-- Changelog of the application. -->
     <history>
@@ -323,6 +343,18 @@ changes to the file system.
         <unraid_template>
           <title>Custom Options</title>
           <description>Custom arguments to pass to FileBot.  This applies to the UI only.</description>
+          <display>advanced</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+      <environment_variable>
+        <name>USE_FILEBOT_BETA</name>
+        <description>When set to `1`, FileBot installed under `/config/beta` (container path) is used.  If no FileBot installation is found under this folder, the latest beta version is automatically downloaded during container startup.  See [Using a Beta Version](#using-a-beta-version) section for more details.  **NOTE**: Use at your own risk.  Beta version may have bugs and stability issues.</description>
+        <default>0</default>
+        <unraid_template>
+          <title>Use FileBot Beta Version</title>
+          <description>When set to [b][i]1[/i][/b], FileBot installed under [i]/config/beta[/i] (container path) is used.  If no FileBot installation is found under this folder, the latest beta version is automatically downloaded during container startup.  [b]NOTE[/b]: Use at your own risk.  Beta version may have bugs and stability issues.</description>
           <display>advanced</display>
           <required>false</required>
           <mask>false</mask>

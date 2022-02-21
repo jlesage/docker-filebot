@@ -43,6 +43,7 @@ just works.
          * [Installing a License](#installing-a-license)
          * [Donation Supported Version](#donation-supported-version)
       * [Automated Media Center (AMC)](#automated-media-center-amc)
+         * [Using a Beta Version](#using-a-beta-version)
       * [Support or Contact](#support-or-contact)
 
 ## Quick Start
@@ -109,6 +110,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`OPENSUBTITLES_USERNAME`| Username of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles. | (unset) |
 |`OPENSUBTITLES_PASSWORD`| Password of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles. | (unset) |
 |`FILEBOT_CUSTOM_OPTIONS`| Custom arguments to pass to FileBot.  This applies to the UI only. | (unset) |
+|`USE_FILEBOT_BETA`| When set to `1`, FileBot installed under `/config/beta` (container path) is used.  If no FileBot installation is found under this folder, the latest beta version is automatically downloaded during container startup.  See [Using a Beta Version](#using-a-beta-version) section for more details.  **NOTE**: Use at your own risk.  Beta version may have bugs and stability issues. | `0` |
 |`AMC_INTERVAL`| Time (in seconds) between each invocation of the Automated Media Center (AMC) script. | `1800` |
 |`AMC_INPUT_STABLE_TIME`| Time (in seconds) during which properties (e.g. size, time, etc) of files in the watch folder need to remain the same before invoking the Automated Media Center (AMC) script.  This is to avoid processing the watch folder while files are being copied. | `10` |
 |`AMC_ACTION`| Action performed by the Automated Media Center (AMC) script on files.  Valid values are `test`, `copy`, `move`, `symlink`, `hardlink`, `keeplink`, `duplicate` or `clone`.  Use the `test` operation to perform a dry-run and verify that everything gets matched up correctly. | `test` |
@@ -540,6 +542,24 @@ changes to the file system.
 **NOTE**: For the script to properly function, container folders `/watch` and
 `/output` must be properly mapped to the host.  See the
 [Data Volumes](#data-volumes) section.
+
+### Using a Beta Version
+
+This container provides the stable version of FileBot.
+However, it's possible to use a beta version when needed.  This is done by
+setting the environment variable `USE_FILEBOT_BETA` to `1`.
+
+When set, the custom FileBot installation located under
+`/config/beta` (container path) is used (instead of the stable version).
+
+FileBot beta version can be installed manually, by
+downloading the portable version from https://get.filebot.net/filebot/BETA and
+extracting the package to `/config/beta`.  Else, the latest beta version is
+downloaded automatically during the startup of the container if no installation
+is found under `/config/beta`.
+
+**NOTE**: Beta version may have bugs and stability issues.  Use at your own
+risk.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 

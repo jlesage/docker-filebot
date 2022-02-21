@@ -7,7 +7,7 @@ export LC_ALL="en_US.UTF-8"
 # force GTK look and feel
 export GNOME_DESKTOP_SESSION_ID=this-is-deprecated
 
-FILEBOT_HOME=/opt/filebot
+FILEBOT_HOME="${FILEBOT_HOME:-/opt/filebot}"
 APP_DATA=/config
 
 # choose archive extractor / media characteristics parser
