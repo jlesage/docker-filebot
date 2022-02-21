@@ -43,7 +43,7 @@ just works.
          * [Installing a License](#installing-a-license)
          * [Donation Supported Version](#donation-supported-version)
       * [Automated Media Center (AMC)](#automated-media-center-amc)
-         * [Using a Beta Version](#using-a-beta-version)
+      * [Using a Beta Version](#using-a-beta-version)
       * [Support or Contact](#support-or-contact)
 
 ## Quick Start
@@ -543,14 +543,14 @@ changes to the file system.
 `/output` must be properly mapped to the host.  See the
 [Data Volumes](#data-volumes) section.
 
-### Using a Beta Version
+## Using a Beta Version
 
 This container provides the stable version of FileBot.
 However, it's possible to use a beta version when needed.  This is done by
 setting the environment variable `USE_FILEBOT_BETA` to `1`.
 
 When set, the custom FileBot installation located under
-`/config/beta` (container path) is used (instead of the stable version).
+`/config/beta` (container path) is used instead of the stable version.
 
 FileBot beta version can be installed manually, by
 downloading the portable version from https://get.filebot.net/filebot/BETA and

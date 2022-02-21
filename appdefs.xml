@@ -98,14 +98,14 @@ changes to the file system.
         </content>
       </section>
       <section>
-        <title level="3">Using a Beta Version</title>
+        <title level="2">Using a Beta Version</title>
         <content>
 This container provides the stable version of {{ defs.app.friendly_name }}.
 However, it's possible to use a beta version when needed.  This is done by
 setting the environment variable `USE_FILEBOT_BETA` to `1`.
 
 When set, the custom {{ defs.app.friendly_name }} installation located under
-`/config/beta` (container path) is used (instead of the stable version).
+`/config/beta` (container path) is used instead of the stable version.
 
 {{ defs.app.friendly_name }} beta version can be installed manually, by
 downloading the portable version from https://get.filebot.net/filebot/BETA and
