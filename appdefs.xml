@@ -121,6 +121,18 @@ risk.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.13.0</version>
+        <date>2022-02-21</date>
+        <change>Java 17 is now used to run FileBot.</change>
+        <change>Language used by AMC to rename files can now be set via the `AMC_LANG` environment variable.</change>
+        <change>Allow using a beta version of FieBot by using the `USE_FILE_BETA` environment variable.</change>
+        <change>Updated MediaInfo library to version 21.09.</change>
+        <change>Updated Chromaprint to version 1.5.1.</change>
+        <change>Allow replacing a license without having to remove the old one</change>
+        <change>Now using baseimage version 3.5.8, based on Alpine 3.15, which brings the following change:</change>
+        <change level="2">Updated installed packages to get latest security fixes.</change>
+      </release>
+      <release>
         <version>1.12.0</version>
         <date>2021-10-15</date>
         <change>Updated FileBot to version 4.9.4 (r8735).</change>
