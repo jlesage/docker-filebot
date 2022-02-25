@@ -121,6 +121,13 @@ risk.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.14.0</version>
+        <date>2022-02-24</date>
+        <change>Updated FileBot to version 4.9.5 (r9112).</change>
+        <change>Fixed an issue where a folder could not be selected from the selection window.</change>
+        <change>Fixed an issue where some icons were missing from the file/folder selection window.</change>
+      </release>
+      <release>
         <version>1.13.0</version>
         <date>2022-02-21</date>
         <change>Java 17 is now used to run FileBot.</change>
