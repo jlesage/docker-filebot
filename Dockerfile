@@ -132,10 +132,11 @@ RUN \
     # Remove unneeded icons.
     rm -r /usr/share/icons/Adwaita/cursors && \
     find /usr/share/icons/Adwaita -type f -name "*.svg" -delete && \
-    find /usr/share/icons/Adwaita -type f -name "*.png" ! -path "*/16x16/*" -delete && \
     find /usr/share/icons/Adwaita -type f -name "*.png" \
         ! -path "*/mimetypes/*" \
         ! -name bookmark-new-symbolic.symbolic.png \
+        ! -name dialog-information.png \
+        ! -name dialog-warning.png \
         ! -name document-open-recent-symbolic.symbolic.png \
         ! -name drive-harddisk.png \
         ! -name drive-harddisk-symbolic.symbolic.png \
@@ -181,46 +182,6 @@ RUN \
     cd .. && \
     cp -v /tmp/chromaprint-install/usr/bin/fpcalc /usr/bin/ && \
     strip /usr/bin/fpcalc && \
-    # Cleanup.
-    del-pkg build-dependencies && \
-    rm -rf /tmp/* /tmp/.[!.]*
-
-# Build and install YAD.
-# NOTE: YAD is compiled manually because the version on the Alpine repository
-#       pulls too much dependencies.
-RUN \
-    # Install packages needed by the build.
-    add-pkg --virtual build-dependencies \
-        build-base \
-        curl \
-        intltool \
-        gtk+3.0-dev \
-        && \
-    # Set same default compilation flags as abuild.
-    export CFLAGS="-Os -fomit-frame-pointer" && \
-    export CXXFLAGS="$CFLAGS" && \
-    export CPPFLAGS="$CFLAGS" && \
-    export LDFLAGS="-Wl,--as-needed" && \
-    # Download.
-    mkdir yad && \
-    echo "Downloading YAD package..." && \
-    curl -# -L ${YAD_URL} | tar xJ --strip 1  -C yad && \
-    # Compile.
-    cd yad && \
-    ./configure \
-        --prefix=/usr \
-        --enable-standalone \
-        --disable-icon-browser \
-        --disable-html \
-        --disable-spell \
-        --disable-sourceview \
-        --disable-tools \
-        --disable-tray \
-        && \
-    make -j$(nproc) && \
-    make install && \
-    strip /usr/bin/yad && \
-    cd .. && \
     # Cleanup.
     del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*

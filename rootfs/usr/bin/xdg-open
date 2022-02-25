@@ -10,18 +10,13 @@ show_license_purchase_info() {
     export XDG_CONFIG_HOME="$XDG_BASE/xdg/config"
     export XDG_CACHE_HOME="$XDG_BASE/xdg/cache"
 
-    yad \
-        --fixed \
-        --center \
+    zenity \
+        --info \
         --title "$APP_NAME" \
         --window-icon /opt/novnc/images/icons/master_icon.png \
-        --borders 10 \
-        --image dialog-information \
-        --image-on-top \
-        --text "<b>Purchase License</b>" \
-        --form \
-        --field "To purchase a license for $APP_NAME, please visit:\n\n<span foreground=\"blue\">$URL</span>\n\nOnce purchased, copy the license file received to your email address to the folder mapped to <i>/config</i> and restart the container.:LBL" \
-        --button=yad-ok:0 > /dev/null || true
+        --width=250 \
+        --text "<b>Purchase License</b>\n\nTo purchase a license for $APP_NAME, please visit:\n\n<span foreground=\"blue\">$URL</span>\n\nOnce purchased, copy the license file received to your email address to the folder mapped to <i>/config</i> and restart the container." \
+        || true
 
     rm -r "$XDG_BASE"
 }
@@ -34,18 +29,13 @@ show_preset_help_info() {
     export XDG_CONFIG_HOME="$XDG_BASE/xdg/config"
     export XDG_CACHE_HOME="$XDG_BASE/xdg/cache"
 
-    yad \
-        --fixed \
-        --center \
+    zenity \
+        --info \
         --title "$APP_NAME" \
         --window-icon /opt/novnc/images/icons/master_icon.png \
-        --borders 10 \
-        --image dialog-information \
-        --image-on-top \
-        --text "<b>Presets</b>" \
-        --form \
-        --field "For preset examples, please visit:\n\n<span foreground=\"blue\">$URL</span>:LBL" \
-        --button=yad-ok:0 > /dev/null || true
+        --width=250 \
+        --text "<b>Presets</b>\n\nFor preset examples, please visit:\n\n<span foreground=\"blue\">$URL</span>" \
+        || true
 
     rm -r "$XDG_BASE"
 }
