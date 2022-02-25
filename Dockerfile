@@ -126,6 +126,8 @@ RUN \
         libzen \
         libcurl \
         tinyxml2 \
+        # Used by Filebot as the open file window.
+        zenity \
         && \
     # Remove unneeded icons.
     rm -r /usr/share/icons/Adwaita/cursors && \
@@ -137,6 +139,7 @@ RUN \
         ! -name document-open-recent-symbolic.symbolic.png \
         ! -name drive-harddisk.png \
         ! -name drive-harddisk-symbolic.symbolic.png \
+        ! -name folder-new-symbolic.symbolic.png \
         ! -name image-missing.png \
         ! -name list-add-symbolic.symbolic.png \
         ! -name media-eject-symbolic.symbolic.png \

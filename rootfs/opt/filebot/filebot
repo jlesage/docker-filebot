@@ -25,7 +25,7 @@ CONTAINER_OPTS=" \
     -DuseGVFS=false \
     -Dapplication.update=skip \
     -Dawt.useSystemAAFontSettings=on \
-    -Dnet.filebot.UserFiles.fileChooser=AWT \
+    -Dnet.filebot.UserFiles.fileChooser=Zenity \
 "
 
 # start filebot
