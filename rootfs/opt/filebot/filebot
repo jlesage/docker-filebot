@@ -34,6 +34,31 @@ exec /usr/lib/jvm/default-jvm/bin/java \
     -Dnet.filebot.license="$APP_DATA/license.psm" \
     -Dnet.filebot.media.parser="$MEDIA_PARSER" \
     -Dnet.filebot.archive.extractor="$ARCHIVE_EXTRACTOR" \
+    --add-opens=java.base/java.lang=ALL-UNNAMED \
+    --add-opens=java.base/java.lang.reflect=ALL-UNNAMED \
+    --add-opens=java.base/java.lang.invoke=ALL-UNNAMED \
+    --add-opens=java.base/java.util=ALL-UNNAMED \
+    --add-opens=java.base/java.util.function=ALL-UNNAMED \
+    --add-opens=java.base/java.util.regex=ALL-UNNAMED \
+    --add-opens=java.base/java.net=ALL-UNNAMED \
+    --add-opens=java.base/java.io=ALL-UNNAMED \
+    --add-opens=java.base/java.nio=ALL-UNNAMED \
+    --add-opens=java.base/java.nio.file=ALL-UNNAMED \
+    --add-opens=java.base/java.nio.file.attribute=ALL-UNNAMED \
+    --add-opens=java.base/java.nio.channels=ALL-UNNAMED \
+    --add-opens=java.base/java.nio.charset=ALL-UNNAMED \
+    --add-opens=java.base/java.time=ALL-UNNAMED \
+    --add-opens=java.base/java.time.chrono=ALL-UNNAMED \
+    --add-opens=java.base/java.util.concurrent=ALL-UNNAMED \
+    --add-opens=java.base/java.text=ALL-UNNAMED \
+    --add-opens=java.base/sun.nio.fs=ALL-UNNAMED \
+    --add-opens=java.logging/java.util.logging=ALL-UNNAMED \
+    --add-opens=java.desktop/java.awt=ALL-UNNAMED \
+    --add-opens=java.desktop/sun.awt=ALL-UNNAMED \
+    --add-opens=java.desktop/sun.swing=ALL-UNNAMED \
+    --add-opens=java.desktop/javax.swing.text.html=ALL-UNNAMED \
+    --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED \
+    -XX:+DisableAttachMechanism \
     -Dunixfs=false \
     -DuseExtendedFileAttributes=true \
     -DuseCreationDate=false \
