@@ -117,7 +117,7 @@ RUN \
         curl \
         gtk+3.0 \
         ttf-dejavu \
-        gnome-icon-theme \
+        adwaita-icon-theme \
         openjdk17-jre \
         java-jna-native \
         # For chromaprint (fpcalc)
@@ -127,7 +127,28 @@ RUN \
         libcurl \
         tinyxml2 \
         && \
-    true
+    # Remove unneeded icons.
+    rm -r /usr/share/icons/Adwaita/cursors && \
+    find /usr/share/icons/Adwaita -type f -name "*.svg" -delete && \
+    find /usr/share/icons/Adwaita -type f -name "*.png" ! -path "*/16x16/*" -delete && \
+    find /usr/share/icons/Adwaita -type f -name "*.png" \
+        ! -path "*/mimetypes/*" \
+        ! -name bookmark-new-symbolic.symbolic.png \
+        ! -name document-open-recent-symbolic.symbolic.png \
+        ! -name drive-harddisk.png \
+        ! -name drive-harddisk-symbolic.symbolic.png \
+        ! -name image-missing.png \
+        ! -name list-add-symbolic.symbolic.png \
+        ! -name media-eject-symbolic.symbolic.png \
+        ! -name pan-up-symbolic.symbolic.png \
+        ! -name pan-down-symbolic.symbolic.png \
+        ! -name pan-end-symbolic.symbolic.png \
+        ! -name pan-start-symbolic.symbolic.png \
+        ! -name user-desktop-symbolic.symbolic.png \
+        ! -name user-home.png \
+        ! -name user-home-symbolic.symbolic.png \
+        ! -name user-trash-symbolic.symbolic.png \
+        -delete
 
 # Build and install chromaprint (fpcalc) for AcousItD.
 RUN \
