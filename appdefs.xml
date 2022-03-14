@@ -121,6 +121,11 @@ risk.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.14.1</version>
+        <date>2022-03-14</date>
+        <change>Updated FileBot to version 4.9.6 (r9125).</change>
+      </release>
+      <release>
         <version>1.14.0</version>
         <date>2022-02-24</date>
         <change>Updated FileBot to version 4.9.5 (r9112).</change>
