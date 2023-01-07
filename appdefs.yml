@@ -285,6 +285,32 @@ container:
 
   # Environment variables.
   environment_variables:
+    - name: FILEBOT_GUI
+      description: >-
+        Setting this to `1` enables the FileBot GUI, `0` disables it.
+      type: public
+      default: 1
+      unraid_template:
+        title: "FileBot GUI State"
+        description: >-
+          Setting this to 1 enables the FileBot GUI, 0 disables it.
+        display: advanced
+        required: false
+        mask: false
+    - name: AMC_ENABLED
+      description: >-
+        Setting this to `1` enables the Automated Media Center (AMC) script, `0`
+        disables it.
+      type: public
+      default: 1
+      unraid_template:
+        title: "Automated Media Center: State"
+        description: >-
+          Setting this to 1 enables the Automated Media Center (AMC) scrip, 0
+          disables it.
+        display: advanced
+        required: false
+        mask: false
     - name: OPENSUBTITLES_USERNAME
       description: >-
         Username of your [OpenSubtitles](https://www.opensubtitles.org)

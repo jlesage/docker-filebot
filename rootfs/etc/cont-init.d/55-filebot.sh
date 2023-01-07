@@ -42,12 +42,14 @@ fi
 # Set dark mode.
 # https://www.filebot.net/forums/viewtopic.php?t=9827
 # [System, CrossPlatform, Darcula, Nimbus, Metal]
-if is-bool-val-true "${DARK_MODE:-0}"; then
-    /opt/filebot/filebot -script fn:properties --def net.filebot.theme=Darcula
-    touch /config/.dark_mode
-elif [ -f /config/.dark_mode ]; then
-    /opt/filebot/filebot -script fn:properties --def net.filebot.theme=Nimbus
-    rm /config/.dark_mode
+if is-bool-val-true "${FILEBOT_GUI:-1}"; then
+    if is-bool-val-true "${DARK_MODE:-0}"; then
+        /opt/filebot/filebot -script fn:properties --def net.filebot.theme=Darcula
+        touch /config/.dark_mode
+    elif [ -f /config/.dark_mode ]; then
+        /opt/filebot/filebot -script fn:properties --def net.filebot.theme=Nimbus
+        rm /config/.dark_mode
+    fi
 fi
 
 # Take ownership of the output directory.

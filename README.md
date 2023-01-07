@@ -113,6 +113,8 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`VNC_LISTENING_PORT`| Port used by the VNC server to serve the UI of the application.  This port is used internally by the container and it is usually not required to be changed.  By default, a container is created with the default bridge network, meaning that, to be accessible, each internal container port must be mapped to an external port (using the `-p` or `--publish` argument).  However, if the container is created with another network type, changing the port used by the container might be useful to prevent conflict with other services/containers.  **NOTE**: a value of `-1` disables listening, meaning that the application's UI won't be accessible over VNC. | `5900` |
 |`VNC_PASSWORD`| Password needed to connect to the application's GUI.  See the [VNC Password](#vnc-password) section for more details. | `""` |
 |`ENABLE_CJK_FONT`| When set to `1`, open-source computer font `WenQuanYi Zen Hei` is installed.  This font contains a large range of Chinese/Japanese/Korean characters. | `0` |
+|`FILEBOT_GUI`| Setting this to `1` enables the FileBot GUI, `0` disables it. | `1` |
+|`AMC_ENABLED`| Setting this to `1` enables the Automated Media Center (AMC) script, `0` disables it. | `1` |
 |`OPENSUBTITLES_USERNAME`| Username of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles. | (unset) |
 |`OPENSUBTITLES_PASSWORD`| Password of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles. | (unset) |
 |`FILEBOT_CUSTOM_OPTIONS`| Custom arguments to pass to FileBot.  This applies to the UI only. | (unset) |

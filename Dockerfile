@@ -131,21 +131,24 @@ RUN \
 
 # Set public environment variables.
 ENV \
-    USE_FILEBOT_BETA="0" \
+    FILEBOT_GUI=1 \
+    AMC_ENABLED=1 \
+    USE_FILEBOT_BETA=0 \
+    FILEBOT_CUSTOM_OPTIONS= \
     OPENSUBTITLES_USERNAME= \
     OPENSUBTITLES_PASSWORD= \
-    AMC_INTERVAL="1800" \
-    AMC_INPUT_STABLE_TIME="10" \
-    AMC_ACTION="test" \
-    AMC_CONFLICT="auto" \
-    AMC_MATCH_MODE="opportunistic" \
-    AMC_ARTWORK="n" \
-    AMC_LANG="English" \
+    AMC_INTERVAL=1800 \
+    AMC_INPUT_STABLE_TIME=10 \
+    AMC_ACTION=test \
+    AMC_CONFLICT=auto \
+    AMC_MATCH_MODE=opportunistic \
+    AMC_ARTWORK=n \
+    AMC_LANG=English \
     AMC_MUSIC_FORMAT="{plex}" \
     AMC_MOVIE_FORMAT="{plex}" \
     AMC_SERIES_FORMAT="{plex}" \
     AMC_ANIME_FORMAT="{plex}" \
-    AMC_PROCESS_MUSIC="y" \
+    AMC_PROCESS_MUSIC=y \
     AMC_SUBTITLE_LANG= \
     AMC_CUSTOM_OPTIONS= \
     AMC_INPUT_DIR=/watch \
