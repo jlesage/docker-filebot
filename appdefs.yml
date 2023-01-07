@@ -1,0 +1,616 @@
+---
+
+#
+# Definitions for FileBot docker container.
+#
+# This file is used as data source to generate README.md and unRAID template files
+# from Jinja2 templates.
+#
+
+app:
+  id: 13
+  name: filebot
+  friendly_name: FileBot
+  gui_type: x11
+  project:
+    description: |-
+      FileBot is the ultimate tool for organizing and renaming your movies, tv shows
+      or anime, and music well as downloading subtitles and artwork. It's smart and
+      just works.
+    url: https://www.filebot.net
+  unraid:
+    support_url: https://forums.unraid.net/topic/68916-support-filebot/
+    category: "MediaApp:Other"
+  documentation:
+    sections:
+      - title: License
+        level: 2
+        content: |-
+          {{ app.friendly_name }} supports a cross-platform custom license model,
+          which means that a license can be purchased and then be used on all the buyer's
+          machines.
+
+          While {{ app.friendly_name }} can be used/evaluated without a license,
+          certain features, like renaming files, won't work without one.
+
+          A license can be purchased at https://www.filebot.net/purchase.html.
+      - title: Installing a License
+        level: 3
+        content: |-
+          Once purchased, the license file received via email can be saved on the host,
+          into the configuration directory of the container (i.e. in the directory mapped
+          to `/config`).
+
+          Then, start or restart the container to have it automatically installed.
+
+          **NOTE**: The license file is expected to have a `.psm` extension.
+      - title: Donation Supported Version
+        level: 3
+        content: |-
+          In the past, {{ app.friendly_name }} was donation supported, meaning that
+          the author was expecting users to donate an arbitrary amount of money if they
+          like and use the software.
+
+          The last version of {{ app.friendly_name }} supporting this model is
+          `4.7.9`.  This version is implemented in container image version `1.0.2`.
+
+          To revert to this version, create the container by using
+          `jlesage/filebot:v1.0.2` as the image name.
+
+          **NOTE**: While no license is required to use this version, it is no longer
+          supported and maintained by the author of {{ app.friendly_name }}.
+      - title: Automated Media Center (AMC)
+        level: 2
+        content: |-
+          This container supports the {{ app.friendly_name }}'s
+          [Automated Media Center](https://www.filebot.net/forums/viewtopic.php?t=215)
+          (AMC) script.  This script automatically and smartly organizes movies, TV shows,
+          anime and music.
+
+          Basically, files copied to the `/watch` container folder are automatically
+          renamed and organized to the `/output` container folder.
+
+          Configuration of the AMC script is done via `AMC_*` environment variables. See
+          the [Environment Variables](#environment-variables) section for the list and
+          descriptions of environment variables that can be set.
+
+          To see what the AMC script is doing, look at the container's log.
+
+          **NOTE**: By default, the script runs in dry mode, meaning that no change is
+          performed.  This allows you to verify that results produced by the script are
+          correct.  Then, the `AMC_ACTION` environment variable can be updated to perform
+          changes to the file system.
+
+          **NOTE**: For the script to properly function, container folders `/watch` and
+          `/output` must be properly mapped to the host.  See the
+          [Data Volumes](#data-volumes) section.
+      - title: Using a Beta Version
+        level: 2
+        content: |-
+          This container provides the stable version of {{ app.friendly_name }}.
+          However, it's possible to use a beta version when needed.  This is done by
+          setting the environment variable `USE_FILEBOT_BETA` to `1`.
+
+          When set, the custom {{ app.friendly_name }} installation located under
+          `/config/beta` (container path) is used instead of the stable version.
+
+          {{ app.friendly_name }} beta version can be installed manually, by
+          downloading the portable version from https://get.filebot.net/filebot/BETA and
+          extracting the package to `/config/beta`.  Else, the latest beta version is
+          downloaded automatically during the startup of the container if no installation
+          is found under `/config/beta`.
+
+          **NOTE**: Beta version may have bugs and stability issues.  Use at your own
+          risk.
+  changelog:
+    - version: 1.14.1
+      date: 2022-03-14
+      changes:
+        - 'Updated FileBot to version 4.9.6 (r9125).'
+    - version: 1.14.0
+      date: 2022-02-24
+      changes:
+        - 'Updated FileBot to version 4.9.5 (r9112).'
+        - 'Fixed an issue where a folder could not be selected from the selection window.'
+        - 'Fixed an issue where some icons were missing from the file/folder selection window.'
+    - version: 1.13.0
+      date: 2022-02-21
+      changes:
+        - 'Java 17 is now used to run FileBot.'
+        - 'Language used by AMC to rename files can now be set via the `AMC_LANG` environment variable.'
+        - 'Allow using a beta version of FieBot by using the `USE_FILE_BETA` environment variable.'
+        - 'Updated MediaInfo library to version 21.09.'
+        - 'Updated Chromaprint to version 1.5.1.'
+        - 'Allow replacing a license without having to remove the old one'
+        - 'Now using baseimage version 3.5.8, based on Alpine 3.15, which brings the following change:'
+        - '2:Updated installed packages to get latest security fixes.'
+    - version: 1.12.0
+      date: 2021-10-15
+      changes:
+        - 'Updated FileBot to version 4.9.4 (r8735).'
+        - 'Adjusted the way the output folder is tested for write permission to support mapping to a NFSv4 share.'
+    - version: 1.11.1
+      date: 2021-04-01
+      changes:
+        - 'Updated MediaInfo library to version 21.03.'
+    - version: 1.11.0
+      date: 2021-03-31
+      changes:
+        - 'Updated FileBot to version 4.9.3 (r8340).'
+    - version: 1.10.2
+      date: 2020-10-02
+      changes:
+        - 'Fixed issue where selecting a file/folder would show an error message.'
+    - version: 1.10.1
+      date: 2020-10-02
+      changes:
+        - 'Fixed issue where FileBot and AMC would crash/hang.'
+    - version: 1.10.0
+      date: 2020-10-01
+      changes:
+        - 'Upgraded FileBot to version 4.9.2.'
+        - 'Updated baseimage to version 3.5.6, which brings the following changes:'
+        - '2:Upgraded glibc to version 2.31 on Alpine Linux images with glibc integrated.'
+        - '2:Updated installed packages to get latest security fixes.'
+        - '2:Adjusted the log monitor target for recent versions of YAD.'
+    - version: 1.9.2
+      date: 2020-06-24
+      changes:
+        - 'Improved handling of options contained in `AMC_CUSTOM_OPTIONS`.'
+    - version: 1.9.1
+      date: 2020-04-25
+      changes:
+        - 'Upgraded FileBot to version 4.9.1.'
+        - 'Fixed issue that would prevent renaming files.'
+    - version: 1.9.0
+      date: 2020-03-18
+      changes:
+        - 'Upgraded FileBot to version 4.9.0.'
+        - 'Switched to baseimage based on Alpine 11.'
+    - version: 1.8.0
+      date: 2019-12-30
+      changes:
+        - 'Custom arguments can now be passed to FileBot UI via the `FILEBOT_CUSTOM_OPTIONS` environment variable.'
+        - 'Now using baseimage v3.5.3, which brings the following changes:'
+        - '2:Updated installed packages to get latest security fixes.'
+        - '2:Make sure the tzdata is installed.'
+    - version: 1.7.0
+      date: 2019-12-08
+      changes:
+        - 'Added the ability to install custom Alpine Linux packages.  This allows user-defined scripts invoked by the AMC script to use tools that are normally not part of the container image.'
+    - version: 1.6.0
+      date: 2019-11-19
+      changes:
+        - 'Added the ability to configure the input and output folders used by the AMC script.'
+    - version: 1.5.3
+      date: 2019-11-05
+      changes:
+        - 'Fixed issue where the configured umask was not used by the AMC script.'
+    - version: 1.5.2
+      date: 2019-11-05
+      changes:
+        - 'Fixed issue where the AMC script would not run under the proper user.'
+    - version: 1.5.1
+      date: 2019-11-04
+      changes:
+        - 'Implemented workaround for the AMC script''s artwork and nfo fetching not working without xattr support.'
+    - version: 1.5.0
+      date: 2019-10-29
+      changes:
+        - 'The ability to fetch artwork and generate NFO file using the AMC script is now configurable.'
+    - version: 1.4.0
+      date: 2019-10-28
+      changes:
+        - 'The match mode used by the AMC script is now configurable.'
+    - version: 1.3.1
+      date: 2019-10-24
+      changes:
+        - 'The AMC script is now invoked with the `-non-strict` option.'
+    - version: 1.3.0
+      date: 2019-10-13
+      changes:
+        - 'Added support for the FileBot''s Automated Media Center (AMC) script.'
+    - version: 1.2.4
+      date: 2019-04-26
+      changes:
+        - 'Now using baseimage v3.5.2, which brings the following changes:'
+        - '2:Updated installed packages to get latest security fixes.'
+        - '2:Fixed issue where the container could have a zombie process.'
+        - '2:Fixed issue where the password would not be submitted when pressing the enter key in the password modal.'
+        - '2:Use relative path for favicon ressources to be more friendly with reverse proxy senarios.'
+    - version: 1.2.3
+      date: 2019-04-03
+      changes:
+        - 'Upgraded FileBot to final version 4.8.5 (r6224).'
+    - version: 1.2.2
+      date: 2019-03-26
+      changes:
+        - 'Adjusted archive extraction to work with the latest FileBot build.'
+    - version: 1.2.1
+      date: 2019-03-25
+      changes:
+        - 'Use 7zip for archive extraction.'
+    - version: 1.2.0
+      date: 2019-02-24
+      changes:
+        - 'Upgraded FileBot to version 4.8.5.'
+        - 'Use baseimage based on Alpine Linux 3.9.'
+    - version: 1.1.5
+      date: 2019-01-07
+      changes:
+        - 'The default folder when loading files is now `/storage`.'
+    - version: 1.1.4
+      date: 2018-09-18
+      changes:
+        - 'Now using baseimage v3.5.1, which brings the following changes:'
+        - '2:Updated installed packages to get latest security fixes.'
+    - version: 1.1.3
+      date: 2018-08-29
+      changes:
+        - 'Upgraded FileBot to version 4.8.4 (r5846).'
+    - version: 1.1.2
+      date: 2018-08-27
+      changes:
+        - 'Upgraded FileBot to version 4.8.2 (r5789).'
+    - version: 1.1.1
+      date: 2018-07-30
+      changes:
+        - 'Fixed issue where the pop-up window about FileBot requiring a license would be shown more than once.'
+    - version: 1.1.0
+      date: 2018-07-30
+      changes:
+        - 'Upgraded FileBot to version 4.8.2.'
+        - 'Now using baseimage v3.4.0, which is based on Alpine Linux 3.8.'
+    - version: 1.0.2
+      date: 2018-03-02
+      changes:
+        - 'Now using baseimage v3.3.4, which brings the following changes (since last used version):'
+        - '2:Make sure the log monitor is started after the X server.'
+        - '2:Fixed an issue where the log monitor `yad` target would use XDG folders of the application.'
+        - '2:Fixed issue where log monitor states were not cleared during container startup.'
+    - version: 1.0.1
+      date: 2018-02-03
+      changes:
+        - 'Now using baseimage v3.3.2, which brings the following changes:'
+        - '2:Restored timezone support in Alpine Linux images with glibc.'
+        - '2:Fixed issue in `add-pkg` helper where a package could be incorrectly detected as installed.'
+    - version: 1.0.0
+      date: 2018-01-31
+      changes:
+        - 'Initial release.'
+
+container:
+  rough_download_size: 250MB
+  storage_permissions: rw
+
+  # Environment variables.
+  environment_variables:
+    - name: OPENSUBTITLES_USERNAME
+      description: >-
+        Username of your [OpenSubtitles](https://www.opensubtitles.org)
+        account.  Required to download subtitles.
+      type: public
+      unraid_template:
+        title: OpenSubtitles Username
+        description: >-
+          Username of your OpenSubtitles (https://www.opensubtitles.org)
+          account.  Required to download subtitles.
+        display: always
+        required: false
+        mask: false
+    - name: OPENSUBTITLES_PASSWORD
+      description: >-
+        Password of your [OpenSubtitles](https://www.opensubtitles.org)
+        account.  Required to download subtitles.
+      type: public
+      unraid_template:
+        title: OpenSubtitles Password
+        description: >-
+          Password of your OpenSubtitles (https://www.opensubtitles.org)
+          account.  Required to download subtitles.
+        display: always
+        required: false
+        mask: false
+    - name: FILEBOT_CUSTOM_OPTIONS
+      description: >-
+        Custom arguments to pass to FileBot.  This applies to the UI only.
+      type: public
+      unraid_template:
+        title: Custom Options
+        display: advanced
+        required: false
+        mask: false
+    - name: USE_FILEBOT_BETA
+      description: >-
+        When set to `1`, FileBot installed under `/config/beta` (container path)
+        is used.  If no FileBot installation is found under this folder, the
+        latest beta version is automatically downloaded during container
+        startup.  See [Using a Beta Version](#using-a-beta-version) section for
+        more details.  **NOTE**: Use at your own risk.  Beta version may have
+        bugs and stability issues.
+      type: public
+      default: 0
+      unraid_template:
+        title: Use FileBot Beta Version
+        description: >-
+          When set to 1, FileBot installed under /config/beta (container path)
+          is used.  If no FileBot installation is found under this folder, the
+          latest beta version is automatically downloaded during container
+          startup.  **NOTE**: Use at your own risk.  Beta version may have bugs
+          and stability issues.
+        display: advanced
+        required: false
+        mask: false
+    - name: AMC_INTERVAL
+      description: >-
+        Time (in seconds) between each invocation of the Automated Media Center
+        (AMC) script.
+      type: public
+      default: 1800
+      unraid_template:
+        title: "Automated Media Center: Interval"
+        display: always
+        required: false
+        mask: false
+    - name: AMC_INPUT_STABLE_TIME
+      description: >-
+        Time (in seconds) during which properties (e.g. size, time, etc) of
+        files in the watch folder need to remain the same before invoking the
+        Automated Media Center (AMC) script.  This is to avoid processing the
+        watch folder while files are being copied.
+      type: public
+      default: 10
+      unraid_template:
+        title: "Automated Media Center: Input Stable Time"
+        display: always
+        required: false
+        mask: false
+    - name: AMC_ACTION
+      description: >-
+        Action performed by the Automated Media Center (AMC) script on files. 
+        Valid values are `test`, `copy`, `move`, `symlink`, `hardlink`,
+        `keeplink`, `duplicate` or `clone`.  Use the `test` operation to perform
+        a dry-run and verify that everything gets matched up correctly.
+      type: public
+      default: test
+      unraid_template:
+        title: "Automated Media Center: Action"
+        description: >-
+          Action performed by the Automated Media Center (AMC) script on files. 
+          Valid values are "test", "copy", "move", "symlink", "hardlink",
+          "keeplink", "duplicate" or "clone".  Use the "test" operation to
+          perform a dry-run and verify that everything gets matched up
+          correctly.
+        display: always
+        required: false
+        mask: false
+    - name: AMC_CONFLICT
+      description: >-
+        Conflict resolution strategy used by the Automated Media Center (AMC)
+        script.  When set to `skip`, existing files are never overriden, while
+        `auto` overrides existing file only if new media is better.
+      type: public
+      default: auto
+      unraid_template:
+        title: "Automated Media Center: Conflict Resolution"
+        description: >-
+          Conflict resolution strategy used by the Automated Media Center (AMC)
+          script.  When set to "skip", existing files are never overriden, while
+          "auto" overrides existing file only if new media is better.
+        display: always
+        required: false
+        mask: false
+    - name: AMC_MATCH_MODE
+      description: >-
+        Match mode used by the Automated Media Center (AMC) script.  The
+        `opportunistic` mode works for all files regardless how badly they are
+        named, while `strict` mode works for reasonably well-named files and
+        ignore files that cannot be matched accurately.  See
+        [Match Mode](https://www.filebot.net/forums/viewtopic.php?t=4695) for
+        complete documentation.
+      type: public
+      default: opportunistic
+      unraid_template:
+        title: "Automated Media Center: Match Mode"
+        description: >-
+          Match mode used by the Automated Media Center (AMC) script.  The
+          "opportunistic" mode works for all files regardless how badly they
+          are named, while "strict" mode works for reasonably well-named files
+          and ignore files that cannot be matched accurately.  See
+          https://www.filebot.net/forums/viewtopic.php?t=4695 for complete
+          documentation.
+        display: always
+        required: false
+        mask: false
+    - name: AMC_ARTWORK
+      description: >-
+        When set to `y`, artwork is fetched and NFO file is generated by the
+        Automated Media Center (AMC) script.
+      type: public
+      default: n
+      unraid_template:
+        title: "Automated Media Center: Artwork"
+        description: >-
+          When set to "y", artwork is fetched and NFO file is generated by the
+          Automated Media Center (AMC) script.
+        display: always
+        required: false
+        mask: false
+    - name: AMC_LANG
+      description: >-
+        Language used by the Automated Media Center (AMC) script to rename
+        files.  Two-characters language code or value like English, French,
+        German, Chinese, etc can be used.
+      type: public
+      default: English
+      unraid_template:
+        title: "Automated Media Center: Language"
+        display: always
+        required: false
+        mask: false
+    - name: AMC_MUSIC_FORMAT
+      description: >-
+        Define how music files are renamed by the Automated Media Center (AMC)
+        script.  Filebot supports a very powerful naming scheme.  See
+        [Format Expressions](https://www.filebot.net/naming.html) for complete
+        documentation.
+      type: public
+      default: "{plex}"
+      unraid_template:
+        title: "Automated Media Center: Music Format"
+        description: >-
+          Define how music files are renamed by the Automated Media Center
+          (AMC) script.  Filebot supports a very powerful naming scheme. 
+          See https://www.filebot.net/naming.html for complete documentation.
+        display: always
+        required: false
+        mask: false
+    - name: AMC_MOVIE_FORMAT
+      description: >-
+        Define how movie files are renamed by the Automated Media Center (AMC)
+        script.  Filebot supports a very powerful naming scheme.  See
+        [Format Expressions](https://www.filebot.net/naming.html) for complete
+        documentation.
+      type: public
+      default: "{plex}"
+      unraid_template:
+        title: "Automated Media Center: Movie Format"
+        description: >-
+          Define how movie files are renamed by the Automated Media Center (AMC)
+          script.  Filebot supports a very powerful naming scheme.  See 
+          https://www.filebot.net/naming.html for complete documentation.
+        display: always
+        required: false
+        mask: false
+    - name: AMC_SERIES_FORMAT
+      description: >-
+        Define how TV series files are renamed by the Automated Media Center
+        (AMC) script.  Filebot supports a very powerful naming scheme.  See
+        [Format Expressions](https://www.filebot.net/naming.html) for complete
+        documentation.
+      type: public
+      default: "{plex}"
+      unraid_template:
+        title: "Automated Media Center: TV Series Format"
+        description: >-
+          Define how TV series files are renamed by the Automated Media Center
+          (AMC) script.  Filebot supports a very powerful naming scheme.  See
+          https://www.filebot.net/naming.html for complete documentation.
+        display: always
+        required: false
+        mask: false
+    - name: AMC_ANIME_FORMAT
+      description: >-
+        Define how anime files are renamed by the Automated Media Center (AMC)
+        script.  Filebot supports a very powerful naming scheme.  See
+        [Format Expressions](https://www.filebot.net/naming.html) for complete documentation.
+      type: public
+      default: "{plex}"
+      unraid_template:
+        title: "Automated Media Center: Anime Format"
+        description: >-
+          Define how anime files are renamed by the Automated Media Center (AMC)
+          script.  Filebot supports a very powerful naming scheme.  See
+          https://www.filebot.net/naming.html for complete documentation.
+        display: always
+        required: false
+        mask: false
+    - name: AMC_PROCESS_MUSIC
+      description: >-
+        When set to `y`, music files are processed by the Automated Media Center
+        (AMC) script.  A value of `n` does not process them.
+      type: public
+      default: y
+      unraid_template:
+        title: "Automated Media Center: Process Music"
+        description: >-
+          When set to "y", music files are processed by the Automated Media
+          Center (AMC) script.  A value of "n" does not process them.
+        display: always
+        required: false
+        mask: false
+    - name: AMC_SUBTITLE_LANG
+      description: >-
+        Comma-separated list of subtitle languages to download.  Example:
+        `en,de,fr`.
+      type: public
+      unraid_template:
+        title: "Automated Media Center: Subtitle Languages"
+        description: >-
+          Comma-separated list of subtitle languages to download.  Example:
+          "en,de,fr".
+        display: always
+        required: false
+        mask: false
+    - name: AMC_CUSTOM_OPTIONS
+      description: >-
+        Custom arguments to pass to the Automated Media Center (AMC) script.
+      type: public
+      unraid_template:
+        title: "Automated Media Center: Custom Options"
+        display: advanced
+        required: false
+        mask: false
+    - name: AMC_INPUT_DIR
+      description: >-
+        Directory inside the container used as the input folder of the Automated
+        Media Center (AMC) script.
+      type: public
+      default: /watch
+      unraid_template:
+        title: "Automated Media Center: Input Directory"
+        display: advanced
+        required: false
+        mask: false
+    - name: AMC_OUTPUT_DIR
+      description: >-
+        Directory inside the container used as the output folder of the
+        Automated Media Center (AMC) script.
+      type: public
+      default: /output
+      unraid_template:
+        title: "Automated Media Center: Output Directory"
+        display: advanced
+        required: false
+        mask: false
+
+  # Volumes
+  volumes:
+    - container_path: /watch
+      host_path_example: "$HOME/FileBot/watch"
+      description: >-
+        This is the input folder of the Automated Media Center (AMC) script. 
+        Any media copied to this folder will be processed by the script. 
+        Note that there is no need to map this folder if the script is not used.
+      permissions: rw
+      include_in_quick_start: false
+      unraid_template:
+        title: "Automated Media Center: Watch Directory"
+        description: >-
+          This is the input folder of the Automated Media Center (AMC) script. 
+          Any media copied to this folder will be processed by the script. 
+        display: always
+        required: false
+        mask: false
+    - container_path: /output
+      host_path_example: "$HOME/media"
+      description: >-
+        This is the output folder of the Automated Media Center (AMC) script. 
+        This is where medias are located once they are renamed and organized. 
+        Note that there is no need to map this folder if the script is not used.
+      permissions: rw
+      include_in_quick_start: false
+      unraid_template:
+        title: "Automated Media Center: Output Directory"
+        description: >-
+          This is the output folder of the Automated Media Center (AMC) script. 
+          This is where medias are located once they are renamed and organized.
+        display: always
+        required: false
+        mask: false
+
+  # Network ports
+  ports: []
+
+  # Devices
+  devices: []
