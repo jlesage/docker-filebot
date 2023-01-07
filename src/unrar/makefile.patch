@@ -1,0 +1,32 @@
+--- a/makefile	2022-10-15 11:45:22.724951674 -0400
++++ b/makefile	2022-10-15 11:49:47.825807944 -0400
+@@ -2,14 +2,15 @@
+ # Makefile for UNIX - unrar
+ 
+ # Linux using GCC
+-CXX=c++
+-CXXFLAGS=-O2 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
++CXX?=c++
++CXXFLAGS?=-O2
++CXXFLAGS+=-Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
+ LIBFLAGS=-fPIC
+ DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
+-STRIP=strip
++STRIP?=strip
+ AR=ar
+-LDFLAGS=-pthread
+-DESTDIR=/usr
++LDFLAGS+=-pthread
++DESTDIR?=/usr
+ 
+ # Linux using LCC
+ #CXX=lcc
+@@ -142,7 +143,7 @@
+ 	@rm -f $(OBJECTS) $(UNRAR_OBJ) $(LIB_OBJ)
+ 	@rm -f unrar libunrar.*
+ 
+-unrar:	clean $(OBJECTS) $(UNRAR_OBJ)
++unrar:	$(OBJECTS) $(UNRAR_OBJ)
+ 	@rm -f unrar
+ 	$(LINK) -o unrar $(LDFLAGS) $(OBJECTS) $(UNRAR_OBJ) $(LIBS)	
+ 	$(STRIP) unrar

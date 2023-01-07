@@ -4,108 +4,67 @@
 # https://github.com/jlesage/docker-filebot
 #
 
-# Build unrar.  It has been moved to non-free since Alpine 3.15.
-# https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.15.0#unrar_moved_to_non-free
-FROM jlesage/alpine-abuild:3.15 AS unrar
-WORKDIR /tmp
-RUN \
-    mkdir /tmp/aport && \
-    cd /tmp/aport && \
-    git init && \
-    git remote add origin https://git.alpinelinux.org/aports && \
-    git config core.sparsecheckout true && \
-    echo "non-free/unrar/*" >> .git/info/sparse-checkout && \
-    git pull origin 3.15-stable && \
-    PKG_SRC_DIR=/tmp/aport/non-free/unrar && \
-    PKG_DST_DIR=/tmp/unrar-pkg && \
-    mkdir "$PKG_DST_DIR" && \
-    /bin/start-build -r && \
-    rm /tmp/unrar-pkg/*-doc-* && \
-    mkdir /tmp/unrar-install && \
-    tar xf /tmp/unrar-pkg/unrar-*.apk -C /tmp/unrar-install
-
-# Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.15-v3.5.8
-
 # Docker image version is provided via build arg.
-ARG DOCKER_IMAGE_VERSION=unknown
+ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
 ARG FILEBOT_VERSION=4.9.6
-ARG CHROMAPRINT_VERSION=1.5.1
-ARG MEDIAINFOLIB_VERSION=21.09
-ARG YAD_VERSION=10.1
+ARG MEDIAINFOLIB_VERSION=22.12
+ARG ZENLIB_VERSION=0.4.40
+ARG UNRAR_VERSION=6.1.7
 
 # Define software download URLs.
 ARG FILEBOT_URL=https://get.filebot.net/filebot/FileBot_${FILEBOT_VERSION}/FileBot_${FILEBOT_VERSION}-portable.tar.xz
-ARG CHROMAPRINT_URL=https://github.com/acoustid/chromaprint/archive/v${CHROMAPRINT_VERSION}.tar.gz
 ARG MEDIAINFOLIB_URL=https://mediaarea.net/download/source/libmediainfo/${MEDIAINFOLIB_VERSION}/libmediainfo_${MEDIAINFOLIB_VERSION}.tar.xz
-ARG YAD_URL=https://github.com/v1cont/yad/releases/download/v${YAD_VERSION}/yad-${YAD_VERSION}.tar.xz
+ARG ZENLIB_URL=https://mediaarea.net/download/source/libzen/${ZENLIB_VERSION}/libzen_${ZENLIB_VERSION}.tar.gz
+ARG UNRAR_URL=https://www.rarlab.com/rar/unrarsrc-${UNRAR_VERSION}.tar.gz
+
+# Get Dockerfile cross-compilation helpers.
+FROM --platform=$BUILDPLATFORM tonistiigi/xx AS xx
+
+# Get FileBot
+FROM --platform=$BUILDPLATFORM alpine:3.16 AS filebot
+ARG FILEBOT_URL
+RUN \
+    apk --no-cache add curl && \
+    # Download sources.
+    mkdir /tmp/filebot && \
+    curl -# -L ${FILEBOT_URL} | tar xJ -C /tmp/filebot && \
+    # Install.
+    mkdir /opt/filebot && \
+    cp -Rv /tmp/filebot/jar /opt/filebot/
+
+# Build unrar.  It has been moved to non-free since Alpine 3.15.
+# https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.15.0#unrar_moved_to_non-free
+FROM --platform=$BUILDPLATFORM alpine:3.16 AS unrar
+ARG TARGETPLATFORM
+ARG UNRAR_URL
+COPY --from=xx / /
+COPY src/unrar /build
+RUN /build/build.sh "$UNRAR_URL"
+RUN xx-verify \
+    /tmp/unrar-install/usr/bin/unrar
+
+# Build MediaInfoLib.
+FROM --platform=$BUILDPLATFORM alpine:3.16 AS libmediainfo
+ARG TARGETPLATFORM
+ARG MEDIAINFOLIB_URL
+ARG ZENLIB_URL
+COPY --from=xx / /
+COPY src/libmediainfo /build
+RUN /build/build.sh "$MEDIAINFOLIB_URL" "$ZENLIB_URL"
+RUN xx-verify \
+    /tmp/libmediainfo-install/usr/lib/libmediainfo.so \
+    /tmp/libmediainfo-install/usr/lib/libzen.so
+
+# Pull base image.
+FROM jlesage/baseimage-gui:alpine-3.16-v4.3.2
+
+ARG FILEBOT_VERSION
+ARG DOCKER_IMAGE_VERSION
 
 # Define working directory.
 WORKDIR /tmp
-
-# Install FileBot.
-RUN \
-    add-pkg --virtual build-dependencies curl && \
-    mkdir filebot && \
-    # Download sources.
-    curl -# -L ${FILEBOT_URL} | tar xJ -C filebot && \
-    # Install.
-    mkdir /opt/filebot && \
-    cp -Rv filebot/jar /opt/filebot/ && \
-    # Cleanup.
-    del-pkg build-dependencies && \
-    rm -rf /tmp/* /tmp/.[!.]*
-
-# Compile and install MediaInfo library.
-RUN \
-    # Install packages needed by the build.
-    add-pkg --virtual build-dependencies \
-        build-base \
-        curl \
-        cmake \
-        automake \
-        autoconf \
-        libtool \
-        curl-dev \
-        libzen-dev \
-        tinyxml2-dev \
-        && \
-    # Set same default compilation flags as abuild.
-    export CFLAGS="-Os -fomit-frame-pointer" && \
-    export CXXFLAGS="$CFLAGS" && \
-    export CPPFLAGS="$CFLAGS" && \
-    export LDFLAGS="-Wl,--as-needed" && \
-    # Download MediaInfoLib.
-    echo "Downloading MediaInfoLib package..." && \
-    mkdir MediaInfoLib && \
-    curl -# -L ${MEDIAINFOLIB_URL} | tar xJ --strip 1 -C MediaInfoLib && \
-    rm -r \
-        MediaInfoLib/Project/MS* \
-        MediaInfoLib/Project/zlib \
-        MediaInfoLib/Source/ThirdParty/tinyxml2 \
-        && \
-    curl -# -L https://github.com/MediaArea/MediaInfoLib/commit/cd6d5cb1cfe03d4fcef8fd38decd04765c19890a.patch | patch -p1 -d MediaInfoLib && \
-    # Compile MediaInfoLib.
-    echo "Compiling MediaInfoLib..." && \
-    cd MediaInfoLib/Project/CMake && \
-    cmake -DCMAKE_BUILD_TYPE=None \
-          -DCMAKE_INSTALL_PREFIX=/usr \
-          -DCMAKE_VERBOSE_MAKEFILE=OFF \
-          -DBUILD_SHARED_LIBS=ON \
-          && \
-    make -j$(nproc) && \
-    make DESTDIR=/tmp/libmediainfo-install install && \
-    cd ../../../ && \
-    # Install MediaInfoLib.
-    cp -av /tmp/libmediainfo-install/usr/lib/libmediainfo.so* /usr/lib/ && \
-    # Strip.
-    strip -v /usr/lib/libmediainfo.so.*.* && \
-    cd ../ && \
-    # Cleanup.
-    del-pkg build-dependencies && \
-    rm -rf /tmp/* /tmp/.[!.]*
 
 # Install dependencies.
 RUN \
@@ -121,10 +80,8 @@ RUN \
         openjdk17-jre \
         java-jna-native \
         # For chromaprint (fpcalc)
-        ffmpeg-libs \
+        chromaprint \
         # For libmediainfo.
-        libzen \
-        libcurl \
         tinyxml2 \
         # Used by Filebot as the open file window.
         zenity \
@@ -154,47 +111,6 @@ RUN \
         ! -name user-trash-symbolic.symbolic.png \
         -delete
 
-# Build and install chromaprint (fpcalc) for AcousItD.
-RUN \
-    add-pkg --virtual build-dependencies \
-        build-base \
-        cmake \
-        curl \
-        ffmpeg-dev \
-        fftw-dev \
-        && \
-    # Download.
-    mkdir chromaprint && \
-    curl -# -L ${CHROMAPRINT_URL} | tar xz --strip 1 -C chromaprint && \
-    # Compile.
-    cd chromaprint && \
-    mkdir build && cd build && \
-    cmake \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DBUILD_SHARED_LIBS=OFF \
-        -DBUILD_TOOLS=ON \
-        -DBUILD_TESTS=OFF \
-        .. && \
-    make -j$(nproc) && \
-    make DESTDIR=/tmp/chromaprint-install install && \
-    cd .. && \
-    cd .. && \
-    cp -v /tmp/chromaprint-install/usr/bin/fpcalc /usr/bin/ && \
-    strip /usr/bin/fpcalc && \
-    # Cleanup.
-    del-pkg build-dependencies && \
-    rm -rf /tmp/* /tmp/.[!.]*
-
-# Adjust the openbox config.
-RUN \
-    # Maximize only the main window.
-    sed-patch 's/<application type="normal">/<application type="normal" title="FileBot \*">/' \
-        /etc/xdg/openbox/rc.xml && \
-    # Make sure the main window is always in the background.
-    sed-patch '/<application type="normal" title="FileBot \*">/a \    <layer>below</layer>' \
-        /etc/xdg/openbox/rc.xml
-
 # Generate and install favicons.
 RUN \
     APP_ICON_URL=https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/filebot-icon.png && \
@@ -202,10 +118,19 @@ RUN \
 
 # Add files.
 COPY rootfs/ /
-COPY --from=unrar /tmp/unrar-install/usr/bin/unrar /usr/bin/
+COPY --from=filebot /opt/filebot /opt/filebot
+COPY --from=libmediainfo /tmp/libmediainfo-install/usr/lib /usr/lib
+COPY --from=unrar /tmp/unrar-install/usr/bin/unrar /usr/bin/unrar
 
-# Set environment variables.
-ENV APP_NAME="FileBot" \
+# Set internal environment variables.
+RUN \
+    set-cont-env APP_NAME "FileBot" && \
+    set-cont-env APP_VERSION "$FILEBOT_VERSION" && \
+    set-cont-env DOCKER_IMAGE_VERSION "$DOCKER_IMAGE_VERSION" && \
+    true
+
+# Set public environment variables.
+ENV \
     USE_FILEBOT_BETA="0" \
     OPENSUBTITLES_USERNAME= \
     OPENSUBTITLES_PASSWORD= \
@@ -227,15 +152,14 @@ ENV APP_NAME="FileBot" \
     AMC_OUTPUT_DIR=/output
 
 # Define mountable directories.
-VOLUME ["/config"]
 VOLUME ["/storage"]
-VOLUME ["/watch"]
 VOLUME ["/output"]
+VOLUME ["/watch"]
 
 # Metadata.
 LABEL \
       org.label-schema.name="filebot" \
       org.label-schema.description="Docker container for FileBot" \
-      org.label-schema.version="$DOCKER_IMAGE_VERSION" \
+      org.label-schema.version="${DOCKER_IMAGE_VERSION:-unknown}" \
       org.label-schema.vcs-url="https://github.com/jlesage/docker-filebot" \
       org.label-schema.schema-version="1.0"
