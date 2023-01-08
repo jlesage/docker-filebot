@@ -103,6 +103,18 @@ app:
           **NOTE**: Beta version may have bugs and stability issues.  Use at your own
           risk.
   changelog:
+    - version: 23.01.1
+      date: 2023-01-08
+      changes:
+        - 'Added the ability to disable the FileBot GUI.'
+        - 'Added the ability to disable the AMC script.'
+        - 'Updated MediaInfo library to version 22.12'
+        - 'Versioning scheme of the Docker image changed to `YY.MM.SEQUENCE`.'
+        - 'Update of the baseimage to version 4.3.2 brings the following new features:'
+        - '2:Multi-arch image support.'
+        - '2:Support for dark mode.'
+        - '2:Support for remote window resize.'
+        - '2:Updated the web UI with a new, simplified and less intrusive look.'
     - version: 1.14.1
       date: 2022-03-14
       changes:
