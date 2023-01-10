@@ -24,13 +24,13 @@ if [ "${LFILE:-UNSET}" != "UNSET" ]; then
     LFILE_COUNT="$(echo "$LFILE" | wc -l)"
     if [ "$LFILE_COUNT" -eq 1 ]; then
         if [ -f "$LICENSE_PATH" ]; then
-            log "existing license will be replaced."
+            echo "existing license will be replaced."
             mv "$LICENSE_PATH" "$LICENSE_PATH".old
         fi
-        log "installing license file $(basename "$LFILE")..."
+        echo "installing license file $(basename "$LFILE")..."
         mv "$LFILE" "$LICENSE_PATH"
     else
-        log "multiple license files found: skipping installation"
+        echo "multiple license files found: skipping installation"
     fi
 fi
 
