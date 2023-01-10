@@ -103,6 +103,10 @@ app:
           **NOTE**: Beta version may have bugs and stability issues.  Use at your own
           risk.
   changelog:
+    - version: 23.01.2
+      date: 2023-01-10
+      changes:
+        - 'Fixed error that was occurring during license installation.'
     - version: 23.01.1
       date: 2023-01-08
       changes:
