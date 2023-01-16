@@ -103,6 +103,10 @@ app:
           **NOTE**: Beta version may have bugs and stability issues.  Use at your own
           risk.
   changelog:
+    - version: 23.01.3
+      date: 2023-01-15
+      changes:
+        - 'Fixed issue where the AMC script would not use the configured UMASK value.'
     - version: 23.01.2
       date: 2023-01-10
       changes:
