@@ -300,7 +300,6 @@ app:
         - 'Initial release.'
 
 container:
-  rough_download_size: 250MB
   storage_permissions: rw
 
   # Environment variables.
