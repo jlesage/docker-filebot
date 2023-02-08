@@ -626,7 +626,7 @@ container:
   # Volumes
   volumes:
     - container_path: /watch
-      host_path_example: "$HOME/FileBot/watch"
+      host_path_example: "/home/user/FileBot/watch"
       description: >-
         This is the input folder of the Automated Media Center (AMC) script. 
         Any media copied to this folder will be processed by the script. 
@@ -642,7 +642,7 @@ container:
         required: false
         mask: false
     - container_path: /output
-      host_path_example: "$HOME/media"
+      host_path_example: "/home/user/media"
       description: >-
         This is the output folder of the Automated Media Center (AMC) script. 
         This is where medias are located once they are renamed and organized. 
