@@ -103,6 +103,10 @@ app:
           **NOTE**: Beta version may have bugs and stability issues.  Use at your own
           risk.
   changelog:
+    - version: 23.03.2
+      date: 2023-03-17
+      changes:
+        - 'Updated FileBot to version 5.0.0.'
     - version: 23.03.1
       date: 2023-03-05
       changes:
