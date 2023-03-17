@@ -29,7 +29,7 @@ RUN \
     apk --no-cache add curl && \
     # Download sources.
     mkdir /tmp/filebot && \
-    curl -# -L ${FILEBOT_URL} | tar xJ -C /tmp/filebot && \
+    curl -# -L -f ${FILEBOT_URL} | tar xJ -C /tmp/filebot && \
     # Install.
     mkdir /opt/filebot && \
     cp -Rv /tmp/filebot/jar /opt/filebot/

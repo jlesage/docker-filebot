@@ -44,7 +44,7 @@ xx-apk --no-cache --no-scripts add \
 
 log "Downloading unrar package..."
 mkdir /tmp/unrar
-curl -# -L ${UNRAR_URL} | tar xz --strip 1 -C /tmp/unrar
+curl -# -L -f ${UNRAR_URL} | tar xz --strip 1 -C /tmp/unrar
 
 log "Patching unrar..."
 patch -d /tmp/unrar -p1 < /build/makefile.patch
