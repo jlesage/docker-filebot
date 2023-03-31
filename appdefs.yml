@@ -103,6 +103,11 @@ app:
           **NOTE**: Beta version may have bugs and stability issues.  Use at your own
           risk.
   changelog:
+    - version: 23.03.4
+      date: 2023-03-31
+      changes:
+        - 'Fixed the Groovy Pad being fullscreen.'
+        - 'Updated MediaInfo library to version 23.03.'
     - version: 23.03.3
       date: 2023-03-20
       changes:
