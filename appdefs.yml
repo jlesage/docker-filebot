@@ -107,7 +107,7 @@ app:
       date: 2023-04-29
       changes:
         - 'Updated FileBot to version 5.0.2 (r9722).'
-        - 'Update of the baseimage to version 4.4.0 brings the following changes:'
+        - 'Updated baseimage to version 4.4.1, which brings the following changes:'
         - '2:Updated TigerVNC to version 1.13.1.'
     - version: 23.04.1
       date: 2023-04-05
