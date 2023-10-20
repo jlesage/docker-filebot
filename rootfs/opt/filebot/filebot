@@ -12,7 +12,7 @@ APP_DATA=/config
 
 # choose archive extractor / media characteristics parser
 ARCHIVE_EXTRACTOR="ShellExecutables"
-MEDIA_PARSER="libmediainfo"
+MEDIA_PARSER="mediainfo"
 
 LIBRARY_PATH="/usr/lib"
 
