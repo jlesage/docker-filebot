@@ -10,9 +10,12 @@ LICENSE_PATH=/config/"$LICENSE_FILE_NAME"
 mkdir -p "$XDG_DATA_HOME"
 
 # Copy default config.
-if [ ! -f /config/prefs.properties ]; then
-    cp /defaults/prefs.properties /config/
-fi
+for FILE in prefs.properties system.properties
+do
+    if [ ! -f /config/"$FILE" ]; then
+        cp -v /defaults/"$FILE" /config/
+    fi
+done
 
 # Clear the fstab file to make sure its content is not displayed when opening
 # files.
@@ -47,8 +50,12 @@ if is-bool-val-true "${FILEBOT_GUI:-1}"; then
         /opt/filebot/filebot -script fn:properties --def net.filebot.theme=Darcula
         touch /config/.dark_mode
     elif [ -f /config/.dark_mode ]; then
-        /opt/filebot/filebot -script fn:properties --def net.filebot.theme=Nimbus
+        /opt/filebot/filebot -script fn:properties --def net.filebot.theme=System
         rm /config/.dark_mode
+    elif ! grep -qw net.filebot.theme /config/system.properties; then
+        # Theme not set.  FileBot defaults to dark theme if not set, so make
+        # sure to explicitly set the light theme.
+        /opt/filebot/filebot -script fn:properties --def net.filebot.theme=System
     fi
 fi
 
