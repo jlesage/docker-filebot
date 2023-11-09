@@ -12,6 +12,7 @@ app:
   name: filebot
   friendly_name: FileBot
   gui_type: x11
+  base_os: alpine
   project:
     description: |-
       FileBot is the ultimate tool for organizing and renaming your movies, tv shows
