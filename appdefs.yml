@@ -104,6 +104,12 @@ app:
           **NOTE**: Beta version may have bugs and stability issues.  Use at your own
           risk.
   changelog:
+    - version: 23.11.2
+      date: 2023-11-19
+      changes:
+        - 'Updated FileBot to version 5.1.2.'
+        - 'Updated baseimage to version 4.5.2, which brings the following changes:'
+        - '2:Fixed issue that would cause the helper that takes ownership of a directory to fail when using a very high user or group ID.'
     - version: 23.11.1
       date: 2023-11-10
       changes:
