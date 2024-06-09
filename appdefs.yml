@@ -104,6 +104,10 @@ app:
           **NOTE**: Beta version may have bugs and stability issues.  Use at your own
           risk.
   changelog:
+    - version: 24.06.1
+      date: 2024-06-09
+      changes:
+        - 'Updated MediaInfo library to version 24.05.'
     - version: 24.05.1
       date: 2024-05-02
       changes:
