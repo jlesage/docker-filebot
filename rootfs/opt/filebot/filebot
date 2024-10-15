@@ -26,6 +26,7 @@ CONTAINER_OPTS=" \
     -Dapplication.update=skip \
     -Dawt.useSystemAAFontSettings=on \
     -Dnet.filebot.UserFiles.fileChooser=Zenity \
+    -Dnet.filebot.util.prefs.sync=true \
 "
 
 # start filebot
