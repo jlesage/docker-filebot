@@ -17,6 +17,12 @@ do
     fi
 done
 
+# Upgrade the getting.started setting that changed path.
+if ! grep -q "net/filebot/ui/getting.started" /config/prefs.properties
+then
+    sed -i 's|net/filebot/getting.started|net/filebot/ui/getting.started|' /config/prefs.properties
+fi
+
 # Clear the fstab file to make sure its content is not displayed when opening
 # files.
 echo > /etc/fstab
