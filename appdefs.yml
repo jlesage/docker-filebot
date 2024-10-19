@@ -104,6 +104,11 @@ app:
           **NOTE**: Beta version may have bugs and stability issues.  Use at your own
           risk.
   changelog:
+    - version: 24.10.1
+      date: 2024-10-18
+      changes:
+        - 'Updated FileBot to version 5.1.6.'
+        - 'Make sure to save FileBot settings immediately.'
     - version: 24.09.1
       date: 2024-09-29
       changes:
