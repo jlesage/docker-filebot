@@ -104,6 +104,10 @@ app:
           **NOTE**: Beta version may have bugs and stability issues.  Use at your own
           risk.
   changelog:
+    - version: 24.10.2
+      date: 2024-10-20
+      changes:
+        - 'Temporarily reverted FileBot to version 5.1.5, because 5.1.6 has an incompatiblity with JNA native library.'
     - version: 24.10.1
       date: 2024-10-18
       changes:
