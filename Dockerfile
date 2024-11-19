@@ -8,7 +8,7 @@
 ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
-ARG FILEBOT_VERSION=5.1.5
+ARG FILEBOT_VERSION=5.1.6
 ARG MEDIAINFOLIB_VERSION=24.11
 ARG ZENLIB_VERSION=0.4.41
 ARG UNRAR_VERSION=6.1.7
@@ -78,7 +78,6 @@ RUN \
         ttf-dejavu \
         adwaita-icon-theme \
         openjdk17-jre \
-        java-jna-native \
         # For chromaprint (fpcalc)
         chromaprint \
         # For libmediainfo.
@@ -86,6 +85,10 @@ RUN \
         # Used by Filebot as the open file window.
         zenity \
         && \
+    # A recent version of JNA, only available in edge, is needed.
+    add-pkg --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+            --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+            --upgrade java-jna-native && \
     # Remove unneeded icons.
     rm -r /usr/share/icons/Adwaita/cursors && \
     find /usr/share/icons/Adwaita -type f -name "*.svg" -delete && \
