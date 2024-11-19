@@ -104,6 +104,11 @@ app:
           **NOTE**: Beta version may have bugs and stability issues.  Use at your own
           risk.
   changelog:
+    - version: 24.11.1
+      date: 2024-11-18
+      changes:
+        - 'Updated FileBot to version 5.1.6.'
+        - 'Updated MediaInfo to version 24.11.'
     - version: 24.10.2
       date: 2024-10-20
       changes:
