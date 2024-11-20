@@ -131,8 +131,8 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`ENABLE_CJK_FONT`| When set to `1`, open-source computer font `WenQuanYi Zen Hei` is installed.  This font contains a large range of Chinese/Japanese/Korean characters. | `0` |
 |`FILEBOT_GUI`| Setting this to `1` enables the FileBot GUI, `0` disables it. | `1` |
 |`AMC_ENABLED`| Setting this to `1` enables the Automated Media Center (AMC) script, `0` disables it. | `1` |
-|`OPENSUBTITLES_USERNAME`| Username of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles. | (no value) |
-|`OPENSUBTITLES_PASSWORD`| Password of your [OpenSubtitles](https://www.opensubtitles.org) account.  Required to download subtitles. | (no value) |
+|`OPENSUBTITLES_USERNAME`| Username of your [OpenSubtitles](https://www.opensubtitles.com) account.  Required to download subtitles. | (no value) |
+|`OPENSUBTITLES_PASSWORD`| Password of your [OpenSubtitles](https://www.opensubtitles.com) account.  Required to download subtitles. | (no value) |
 |`FILEBOT_CUSTOM_OPTIONS`| Custom arguments to pass to FileBot.  This applies to the UI only. | (no value) |
 |`USE_FILEBOT_BETA`| When set to `1`, FileBot installed under `/config/beta` (container path) is used.  If no FileBot installation is found under this folder, the latest beta version is automatically downloaded during container startup.  See [Using a Beta Version](#using-a-beta-version) section for more details.  **NOTE**: Use at your own risk.  Beta version may have bugs and stability issues. | `0` |
 |`AMC_INTERVAL`| Time (in seconds) between each invocation of the Automated Media Center (AMC) script. | `1800` |

@@ -450,26 +450,26 @@ container:
         mask: false
     - name: OPENSUBTITLES_USERNAME
       description: >-
-        Username of your [OpenSubtitles](https://www.opensubtitles.org)
+        Username of your [OpenSubtitles](https://www.opensubtitles.com)
         account.  Required to download subtitles.
       type: public
       unraid_template:
         title: OpenSubtitles Username
         description: >-
-          Username of your OpenSubtitles (https://www.opensubtitles.org)
+          Username of your OpenSubtitles (https://www.opensubtitles.com)
           account.  Required to download subtitles.
         display: always
         required: false
         mask: false
     - name: OPENSUBTITLES_PASSWORD
       description: >-
-        Password of your [OpenSubtitles](https://www.opensubtitles.org)
+        Password of your [OpenSubtitles](https://www.opensubtitles.com)
         account.  Required to download subtitles.
       type: public
       unraid_template:
         title: OpenSubtitles Password
         description: >-
-          Password of your OpenSubtitles (https://www.opensubtitles.org)
+          Password of your OpenSubtitles (https://www.opensubtitles.com)
           account.  Required to download subtitles.
         display: always
         required: false
