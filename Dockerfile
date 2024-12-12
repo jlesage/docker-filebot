@@ -74,7 +74,6 @@ RUN \
         findutils \
         coreutils \
         curl \
-        gtk+3.0 \
         ttf-dejavu \
         adwaita-icon-theme \
         openjdk17-jre \
