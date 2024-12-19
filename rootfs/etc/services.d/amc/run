@@ -6,6 +6,10 @@ log() {
     echo "$*"
 }
 
+debug() {
+    is-bool-val-false "${CONTAINER_DEBUG:-0}" || log "$*"
+}
+
 process_filebot_output() {
     while read LINE; do
         log "$LINE"
@@ -93,11 +97,13 @@ while true; do
 
     # Do not invoke the AMC script if input folder is empty.
     if ! ls -1qA "$AMC_INPUT_DIR" | grep -q .; then
+        debug "Skipping AMC script invocation: input folder is empty."
         continue
     fi
 
     # Do not invoke the AMC script if input folder did not change.
     if ! WATCHDIR_HASH_changed "$AMC_INPUT_DIR"; then
+        debug "Skipping AMC script invocation: input folder did not change."
         continue
     fi
 
