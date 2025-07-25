@@ -104,6 +104,11 @@ app:
           **NOTE**: Beta version may have bugs and stability issues.  Use at your own
           risk.
   changelog:
+    - version: 25.07.2
+      date: 2025-07-24
+      changes:
+        - 'Take ownership of the output directory only if it is not writable.'
+        - 'Updated baseimage to version 4.9.0.'
     - version: 25.07.1
       date: 2025-07-05
       changes:
