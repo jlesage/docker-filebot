@@ -2,6 +2,9 @@
 
 export HOME=/config
 
+# Disable (unsupported) accessibility features.
+export NO_AT_BRIDGE=1
+
 cd /storage
 exec /opt/filebot/filebot ${FILEBOT_CUSTOM_OPTIONS:-}
 
