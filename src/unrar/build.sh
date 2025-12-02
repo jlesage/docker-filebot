@@ -13,7 +13,7 @@ export CC=xx-clang
 export CXX=xx-clang++
 export STRIP=echo
 
-function log {
+log() {
     echo ">>> $*"
 }
 
@@ -27,6 +27,7 @@ fi
 #
 # Install required packages.
 #
+
 apk --no-cache add \
     curl \
     clang \
