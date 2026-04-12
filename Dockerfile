@@ -23,7 +23,7 @@ ARG UNRAR_URL=https://www.rarlab.com/rar/unrarsrc-${UNRAR_VERSION}.tar.gz
 FROM --platform=$BUILDPLATFORM tonistiigi/xx AS xx
 
 # Get FileBot
-FROM --platform=$BUILDPLATFORM alpine:3.16 AS filebot
+FROM --platform=$BUILDPLATFORM alpine:3.20 AS filebot
 ARG FILEBOT_URL
 RUN \
     apk --no-cache add curl && \
@@ -36,7 +36,7 @@ RUN \
 
 # Build unrar. It has been moved to non-free since Alpine 3.15.
 # https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.15.0#unrar_moved_to_non-free
-FROM --platform=$BUILDPLATFORM alpine:3.16 AS unrar
+FROM --platform=$BUILDPLATFORM alpine:3.20 AS unrar
 ARG TARGETPLATFORM
 ARG UNRAR_URL
 COPY --from=xx / /
@@ -46,7 +46,7 @@ RUN xx-verify \
     /tmp/unrar-install/usr/bin/unrar
 
 # Build MediaInfoLib.
-FROM --platform=$BUILDPLATFORM alpine:3.16 AS libmediainfo
+FROM --platform=$BUILDPLATFORM alpine:3.20 AS libmediainfo
 ARG TARGETPLATFORM
 ARG MEDIAINFOLIB_URL
 ARG ZENLIB_URL
@@ -58,7 +58,7 @@ RUN xx-verify \
     /tmp/libmediainfo-install/usr/lib/libzen.so
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.16-v4.11.3
+FROM jlesage/baseimage-gui:alpine-3.20-v4.11.3
 
 ARG FILEBOT_VERSION
 ARG DOCKER_IMAGE_VERSION
