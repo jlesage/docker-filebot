@@ -57,7 +57,7 @@ xx-apk --no-cache --no-scripts add \
 
 log "Downloading MediaInfoLib package..."
 mkdir /tmp/MediaInfoLib
-curl -# -L -f ${MEDIAINFOLIB_URL} | tar xJ --strip 1 -C /tmp/MediaInfoLib
+curl -# -L -f ${MEDIAINFOLIB_URL} | tar xz --strip 1 -C /tmp/MediaInfoLib
 rm -r \
     /tmp/MediaInfoLib/Project/MS* \
     /tmp/MediaInfoLib/Project/zlib \
