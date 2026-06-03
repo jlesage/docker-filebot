@@ -1,7 +1,5 @@
 #!/bin/sh
 
-export HOME=/config
-
 # Added to avoid the following error message:
 #   MESA-LOADER: failed to open swrast: Error loading shared library
 #   /usr/lib/xorg/modules/dri/swrast_dri.so: No such file or directory
