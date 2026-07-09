@@ -32,26 +32,43 @@ apk --no-cache add \
     curl \
     clang \
     patch \
-    make \
+    make
 
-xx-apk --no-cache --no-scripts add \
+apk --no-cache --no-scripts add \
     musl-dev \
     gcc \
-    g++ \
+    g++
 
 #
 # Download sources.
 #
-
 log "Downloading unrar package..."
-mkdir /tmp/unrar
-curl -# -L -f ${UNRAR_URL} | tar xz --strip 1 -C /tmp/unrar
+TMP_DIR="/tmp/unrar"
+mkdir -p "$TMP_DIR"
+if ! curl -# -L -f "${UNRAR_URL}" | tar xz --strip 1 -C "$TMP_DIR"; then
+    log "ERROR: Failed to download or extract unrar package."
+    exit 1
+fi
 
 log "Patching unrar..."
-patch -d /tmp/unrar -p1 < /build/makefile.patch
+if ! patch -d "$TMP_DIR" -p1 < /build/makefile.patch; then
+    log "ERROR: Failed to apply patch."
+    exit 1
+fi
 
 log "Compiling unrar..."
-make -C /tmp/unrar -f makefile -j$(nproc)
+if [ ! -f "$TMP_DIR/makefile" ]; then
+    log "ERROR: Makefile not found in the unrar source directory."
+    exit 1
+fi
+
+make -C "$TMP_DIR" -f makefile -j"$(nproc)"
 
 log "Installing unrar..."
-make DESTDIR=/tmp/unrar-install/usr -C /tmp/unrar -f makefile install
+make DESTDIR=/tmp/unrar-install/usr -C "$TMP_DIR" -f makefile install
+
+# Cleanup
+log "Cleaning up..."
+rm -rf "$TMP_DIR"
+
+log "Unrar installation completed successfully."
